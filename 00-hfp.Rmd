@@ -1,0 +1,36 @@
+# Example of realized service data: HFP {#hfp}
+
+- What HFP data offers us, and how to use it in transit planning
+  - Basic attributes, frequency, etc.
+- Transforming HFP for long-term storage
+  - Quantize to 1 s precision
+  - Remove horizontal and vertical redundancy
+  - Normalize
+  - Where HFP is master data vs. what to fetch elsewhere, e.g. stops and journey attributes
+- Storing only stop-based data might not be a good idea
+  - Most KPIs and monitoring needs are stop-based: tempting to discard more detailed data that takes up space
+  - Imperfect stop detection
+  - How data can be lost in between stops
+  - Vehicles and time instants are real, stops are virtual
+- Vehicle state in space and time
+  - Single source of truth
+  - Everything else is just related on top of this
+    - Journeys <- scheduled trips, related stop events
+    - Stops
+    - Network
+    - Other instant- and period-based facts, such as traffic light events
+  - By storing absolute time stamps, facts can be decoupled from the "meta" time dimension
+    - E.g., if we later notice that a stop was modelled to a wrong location at time X, we can fix it and re-run stop-based aggregates from the fact data starting from the time X.
+- Examples of using the data through virtual or materialized views
+  - Stop KPIs
+  - Route KPIs
+  - Network link KPIs
+  - When (not) to materialize
+- Data lifespan
+  - For new data, make sure _everything_ is stored and as little as possible is lost
+  - Then store and filter out critically invalid data, such as duplicates
+  - Flag invalid or imperfect records (by different rules) so they can be filtered out easily (by different needs), but do not discard them
+  - Move infrequently accessed data into a lower tier storage, "cold"
+    - Alternative strategies: 
+      - Either save the "root" data only, making it possible to restore aggregates again later
+      - Or save aggregated data and discard root data: only do this if absolutely sure

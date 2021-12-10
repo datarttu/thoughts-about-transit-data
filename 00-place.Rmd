@@ -1,0 +1,32 @@
+# Place in transit data {#place}
+
+- "Where" do passengers travel? What is the "route" of the bus?
+- Stops
+  - Points where pax can board and exit
+  - Or... areas? Linear features?
+    - Modelling stop detection area with radius, example from Transitlog
+- Hastus (scheduling) _places_
+  - It makes no sense to plan run times and schedules for every stops
+  - Instead, we use certain stops as "definitive"
+  - Can be also used to describe and analyze accessibility, service coverage, etc. from a planner's perspective, whereas individual stops would be too detailed and redundant
+  - Place can be mapped to multiple stops
+    - Must consider this with place-to-place analysis: which stops are actually used to represent the place?
+    - Multiple stops of the same route pattern can belong to the same place
+      - Therefore stops must be flagged as active/inactive for the place by each route pattern
+- What does a route mean?
+  - Intuitively: where the bus / tram service goes
+  - Route pattern: ordered list of stops (and, thus, schedule places): relevant, because pax cannot enter/exit elsewhere
+  - Route _itinerary_: path through the network to visit the stops
+    - Often seen as single linestring per route pattern. E.g., GTFS.
+    - However, consists of network links that are often used by multiple route patterns.
+    - Network-based modelling is important especially when analyzing the infrastructure performance.
+    - Often the itinerary can change while the stop list does not
+      - E.g., detour due to construction site
+      - Affects run times between stops
+- Conclusion:
+  - Like with time concepts, also here we have a hierarchy that is worth identifying
+  - Data models should reflect this hierarchy to avoid both repeated and ambiguous data
+  - Routes are mapped to stops and network links, and stops and network links are mapped to geographical locations, and these mappings can change
+  - But also note that even the basic parts can change in time: stops and network links are added, deleted and modified
+    - An ideal data model should be able to reflect these changes transparently in the hierarchy.
+    - In addition to transit time dimension(s), we have also the "meta" time dimension.

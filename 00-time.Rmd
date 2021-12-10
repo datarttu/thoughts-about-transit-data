@@ -1,0 +1,134 @@
+# Time in transit data {#time}
+
+- Times and durations
+  - Overlapping concept of "time"
+  - E.g., "time of day"
+  - E.g., "run time"
+- Decomposing _time_
+  - Absolute timestamps: dates and times
+  - "General" timestamps: not related to specific date
+  - Day types and seasons
+    - E.g., vehicle schedules by day type and season, containing general clock timestamps
+  - 24h clock, hh:mm:ss
+  - [ss] not significant in bus and tram planning
+    - However must be considered "under the hood": e.g. interpolating stop times between close stops
+  - Calendar date
+  
+## Operating days and 30-hour clock
+
+The concept of *date* in a given time zone is a pretty simple one:
+a new date, `+1 day` to the previous one, begins every midnight at 00:00.
+Unfortunately in transit scheduling, it's not as simple as that.
+Consider a trip that starts in late Friday evening and has a schedule like this:
+
+```
+stop_1 23:49
+stop_2 23:54
+stop_3 23:59
+stop_4 00:01
+stop_5 00:05
+```
+
+In schedule planning, every regular trip originates from a vehicle schedule that is required to have a *day type* attribute:
+usually the day type can be something like `Mon-Fri`, `Sat`, `Sun`, or a special day type, such as `Independence Day`.
+The day type is used to assign the trips of a vehicle schedule to real calendar dates, i.e., an identical set of trips of a `Mon-Fri` vehicle schedule is assigned to every working day during the season, such as our current winter operation season 16.8.2021-19.6.2022.
+This way we don't need to assign the trips manually to each date, and operators and passengers get schedules that are easy to understand, as well.
+(Day types can override each other, meaning in practice that if `Independence Day` is assigned to a normal Monday, then that special day type is prioritized instead of `Mon-Fri`, except if a vehicle schedule has no separate version specified for that special day type, then it still follows `Mon-Fri` trips.
+I'll not go deeper into this here.)
+
+Now, you see that the calendar date clearly changes after the third stop in the example above.
+Still, the example trip must be assigned to one vehicle schedule and day type exactly - we cannot split it into two trips, as it must be a continuous trip run with the same vehicle, from both operator's and passengers' perspective.
+And our planning software (Hastus) obviously does not allow "jumping" backwards in the timeline during the trip.
+
+The practical answer is *operating day*.
+The main point is that *an operating day spans over the real midnight*, allowing trips to be partially or entirely assigned to the day type that in reality refers to the previous calendar date.
+In vehicle schedule planning, it means a timeline of a day like this:
+
+**TODO SCREENSHOT FROM HASTUS**
+
+Hastus uses the definition of 30-hour operating day and therefore allows trips of the "previous day" to last until 6:00 on the next real day.
+HSL, on the other hand, tends to define that an operating day starts at 0:00 and end at 4:30 on the next calendar day:
+this is due to practical reasons, as there is usually as little traffic as possible going on just between 4 and 5 in the morning.
+But this is more of a practice than an exhaustive definition, and it is not enforced technically, as far as I know:
+any trip that is valid in Hastus' timeline will do.
+30-hour operating day is also used by GTFS, so I think it's a reasonable default length to assume when considering transit times in data models, unless stated otherwise.
+
+In addition to stretching the timeline needed for the trips of a day type a bit, there is another benefit from operating days:
+entire trips can be defined after 24:00, if they are only required on Friday or Saturday nights, or night before a holiday.
+Although it would be technically OK to define them on the next calendar day after 00:00, this would not be logical to the passengers: 30-hour operating day allows such trips to be visible in the public schedule tables under Friday, Saturday, and so on, not "randomly" under the next weekday.
+
+Obviously, operating days and calendar days go hand in hand, as long as both start in the midnight, but then there's an overlap in the night:
+the time range `00:00-06:00` of a calendar day `5.3.2021` equals both `00:00-06:00` of `5.3.2021` and `24:00-30:00` of `4.3.2021` measured as operating days.
+We can thus note that the conversion from operating days and 30-hour times to real timestamps is irreversible for times between 00:00 and 06:00.
+This introduces a challenge in data modelling: whether to express days and times as operating days and 30-hour times that represent well the planning context of transit, or as real datetimes/timestamps that are technically unambiguous, since they refer to exactly one point in the real timeline.
+Based on my own experience, I'd avoid this caveat by using operating days and 30-hour times as far as possible on the *planning side*, and keep using real datetimes whenever *real operations*, such as operated trips, are modelled - since real events tend to happen in a continuous, unambiguous time horizon.
+
+One more note to make the concept of operating day not too simple: [GTFS Reference](https://developers.google.com/transit/gtfs/reference#field_types) does not refer to operating days but *service days* - which makes as perfectly much sense, too, in my view.
+This is just one of the many examples how in transit modelling, a term can often have synonyms, none of which is necessarily the absolutely correct one to use.
+The dominating one often tends to be determined by traditions and practices of organizational language, and I haven't seen a standard document either that would manage to cover all such cases.
+
+One more, even more important note from GTFS: I only just learned that Google tells there that *the time is measured from "noon minus 12h"*.
+Why?
+Because if you want to take *daylight savings* into account correctly, you cannot actually use midnight as the reference, as timezone shifts tend to be done at 3:00 or 4:00 in the morning, at least in Finland.
+Using the midnight reference would then mess up matching calendar and operating days on those dates when the shifts happen.
+This new information blowed my mind, and I still need some time to refresh my conceptions and opinions on how to correctly model transit date and time data on the planning side...
+
+
+::: {.tipblock data-latex=""}
+**Tips for data modelling**
+
+- In planning context, keep using operating days and 30-hour times if you possibly can: they can be converted into real datetimes unambiguously, but not vice versa.
+- In real operations context, it is wise to use real datetimes, otherwise you can easily mix up whether an event happened today or yesterday night.
+Remember that you can still, for example, easily match a real trip to the planned one by using the conversion from operating to real days mentioned above:
+
+```
+Planned trip starts at 4.5.2020 25:01:00 (operating day)
+Real trip started at 5.5.2020 25:02:03 (real day)
+-> Set these to the same timeline by converting the planned trip:
+<date 2020-05-04> + <25 hours> + <1 minute> + <0 seconds> == 5.5.2020 25:01:00
+```
+
+- In Postgres, do not try to use the `TIME` (24-hour clock time) type for 30-hour operating times.
+Instead, use `INTERVAL` that makes it easy to store time values starting from midnight as decimal seconds while representing them as `HH:MM:SS`.
+Moreover, addition `DATE + INTERVAL` results directly to a correct `TIMESTAMP` value, and of course takes into account `> 24:00:00` times, resulting in a timestamp on the next calendar date.
+Just remember to add the correct timezone information when converting to `TIMESTAMP WITH TIME ZONE`!
+- In R when using packages such as `{lubridate}` or `{hms}`, as well as Python, conventional time representations will not support 30-hour clock times either.
+Find something comparable to the Postgres' `INTERVAL` type - probably you'll have to mess around with `Date` and `difftime` types together in R.
+I've often stored the times as plain decimal seconds from midnight, and used a custom formatter function that can render the values as >24 hour `HH:MM:SS(.sss)` labels, when creating plots with a 30-hour timeline, for instance. 
+:::
+
+
+  - Time zones...
+  - Conclusion
+    - Mapping everything to continuous timeline (PLOT)
+    - Consider which time types to use in order not to lose information or cause ambiguity
+      - E.g., date + 30h clock is richer and unambiguous, whereas absolute timestamps are not
+      - If using absolute timestamps, include the time zone!
+- Decomposing _duration_
+  - Connection to absolute or general times
+    - Durations can be calculated as differences of these
+    - Conversely, absolute or general times can be created by adding a duration on top of a base timestamp
+      - This is how trip stop times are created
+  - Duration always needs a reference/context:
+    - First stop?
+    - Timing stop?
+    - Something else?
+- Conclusion:
+  - Simplifying the meaning of time in transit too much can lead to concept and data models that cannot catch the complexity of transit...
+    - Take Digitransit "journey" definition as an example
+  - It is OK to use simple "date", "time", and "duration", but then you have to provide a context - what they mean and do not mean.
+  - Identify the hierarchy of times and make use of it:
+    - E.g., if you have constant run times on your transit routes (or just some variability during the day), then create the data model accordingly:
+      - Store trip start timestamps + durations to each stop. Automatically generate stop timestamps and absolute datetimes from these.
+      - If you skip this step and store a whole lot of absolute times, it seems like your operations had no regularity and the data makes less sense.
+    - Providing absolute times and timestamps makes the data easier to use, but please provide also the attributes to detect the origin of the times and timestamps.
+      - Bad example: HSL GTFS containing a lot of redundancy.
+
+## Conclusion
+
+- Real days and operating days
+- Real and 30-hour clock times
+- Datetimes, time zones
+- Durations, and how to connect times and durations
+- Intervals and "civil" general intervals such as "morning peak"
+- Deviations, or time differences (can be negative, unlike durations)

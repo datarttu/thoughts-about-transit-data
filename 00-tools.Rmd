@@ -1,0 +1,18 @@
+# Useful data tools {#tools}
+
+- Excel
+  - Excel date meme here ...
+- R
+  - tidyverse
+  - data.table
+  - sf
+  - DBI, RPostgres
+  - Rcpp
+  - Domain-specific packages: `{stplanr}`, `{tidytransit}`
+- PostgreSQL
+  - PostGIS
+  - pgRouting
+  - TimescaleDB, Citus / Hyperscale
+- Python
+- QGIS
+- Git

@@ -1,0 +1,39 @@
+--- 
+title: "Blog Posts about Transit Data"
+author: "Arttu Kosonen"
+date: "`r Sys.Date()`"
+bibliography:
+- book.bib
+- packages.bib
+link-citations: yes
+knit: bookdown::render_book
+header-includes:
+  - \usepackage{awesomebox}
+---
+
+# Introduction {-}
+
+This is a series of blog post styled texts where I consider some aspects of public transport data modelling, based on my personal experience writing my Master's thesis from year 2019 on, and working at HSL (Helsinki Region Transport) as transit planner and data engineer.
+In the following sections, I will discuss how time and place can be represented in transit data, how to validate data, what planning- and reality-related transit data can look like, and what tools I tend to use to handle these data.
+
+Although not all the example data I'm using are publicly available as such, the original realtime sources are, and I will not be using any secret or sensitive data.
+Thus you may distribute my work further as a learning material, for instance.
+However, note that these texts are not exhaustive, scientifically proved facts or common best practices, but rather my own thoughts and experiences.
+There is no answer how to best model and use transit data, and what tools to use for it - it depends!
+And I've only just started my own path in the fascinating world of transit data modelling.
+
+- I like to distinguish between planned and realized transit when modelling data ...
+  - Both are simple and complex in their own ways
+  - Space and time are represented differently in some cases
+  - GTFS and HFP as examples
+- Both planned and realized data are always *messy*, rarely perfect: therefore, *validation*
+  - A topic that often gets too little attention, comparable to importance of testing in software development
+- Tools that have taught me so much
+  - Transit data soon gets something that will not fit into Excel
+
+```{r message=FALSE, warning=FALSE, include=FALSE}
+# automatically create a bib database for R packages
+knitr::write_bib(c(
+  .packages(), 'bookdown', 'knitr', 'rmarkdown'
+), 'packages.bib')
+```
