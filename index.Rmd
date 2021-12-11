@@ -36,4 +36,9 @@ And I've only just started my own path in the fascinating world of transit data 
 knitr::write_bib(c(
   .packages(), 'bookdown', 'knitr', 'rmarkdown'
 ), 'packages.bib')
+knitr::opts_chunk(message = FALSE,
+                  warning = FALSE,
+                  include = FALSE,
+                  echo = TRUE,
+                  fig.align = 'center')
 ```

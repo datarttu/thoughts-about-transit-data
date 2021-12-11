@@ -1,0 +1,8 @@
+"Stop","Run time","Cumulative run time","Departure time"
+"Stop 1","0 min","0 min","12:00 (initial)"
+"Stop 2","2 min","2 min","12:02 = 12:00 + 2 min"
+"Stop 3","1 min","3 min","12:03 = 12:00 + 3 min"
+"…","…","…","…"
+"Stop 1","0 min","0 min","16:00 (initial)"
+"Stop 2","3 min","3 min","16:03 = 16:00 + 3 min"
+"Stop 3","2 min","5 min","16:05 = 16:00 + 5 min"
