@@ -1,24 +1,103 @@
 # Useful data tools {#tools}
 
+In this text, I'll briefly present my favourite software tools for working with transit and movement data, since 2016.
+
 ## Excel - a handy scratchpad
 
-Excel date meme here ...
+Excel is widely used and known, and in that regard, great for data communication, sharing and interoperability.
+Today, it's still my Swiss army knife in data wrangling - but only for small datasets that need visual inspection and modifications that are easiest to do interactively in the cell-based UI.
+Nowadays, implementing a full data wrangling and analysis workflow in Excel would be a red flag for me (while not generally, though - I don't expect everyone to like the same tools and workflows I do).
+This is mainly because workflows are **not serializable and reproducible** in Excel, even if the data itself was.
+In a workbook filled with formulae and cross-references between cells and sheets, after a while I'm not really able to tell my line of thought and order of creating the analysis and calculation steps.
+And, if something is broken, it's often extremely difficult to find where that happens, what comes before it and what it affects afterwards.
+This is the cost of the nice-feeling interactivity of Excel.
 
-**Recommended reading:** [Why I migrated from Excel to R](https://outsiderdata.netlify.app/post/why-i-migrated-from-excel-to-r/) by Art Steinmetz
+Another reason for me not to prefer Excel as data I/O and analysis tool is that it's designed *too* user-centric:
+Microsoft tries, understandably, abstract away from the user all the messiness a dataset and the required workflow could possibly have, and make everything appear nice and simple.
+Unfortunately this tends to do more harm than really simplify the user experience.
+A famous example is how everything in the raw data or user input that might even slightly resemble a date, or Excel's internal date format (integer where `1` corresponds to `1900-01-01`), is forced into a date.
+In 99 % of my use cases, this is nothing that I want and just makes me spend another half a minute to convert a column back to `text`, for example, and rewrite the contents.
+It's for a good reason that this feature has inspired so many memes, like Figure \@ref(fig:excel-meme).
 
-## R
+```{r excel-meme, echo=FALSE, fig.cap='Meme from tumblr.com.'}
+knitr::include_graphics('fig/excel-meme.png')
+```
 
-- tidyverse
-- data.table
-- sf
-  - Geopackage for QGIS interoperability
-- DBI, RPostgres
-- Rcpp
-- Domain-specific packages: `{stplanr}`, `{tidytransit}`
+Compared to non-interactive tools, Excel fails with big datasets (say, over a million rows), and it's not very practical for the user, either, to scroll through a high number of rows and order, filter and modify them by eye - I'd say right after the row number is more than a hundred.
+Cell value formatting is a great thing when making things for visual outputs - I really like to make simple reports with Excel where I get the correct amount of decimal places, and percentage and euro signs attached to my output in a second.
+But in actual data handling, it can be rather dangerous if Excel likes to render a csv file with only two decimal places for floats, or convert random integers into dates, or truncate timestamps coarser than original, while an alternative tool like Notepad++ shows what the csv *really* looks like, and how the computer will see the raw strings that csv contains.
+
+Meanwhile, Excel is **great** at creating, editing, and - to an extent, keeping in mind the date mess - opening *tabular* data.
+Visualizing a data table with columns aligned is much nicer and allows for much faster workflows than trying to mess with text editors.
+One could assume there are plenty of tools that have the Excel-like tabular view but not the cons of Excel (like knowing better than the users how they want their data rendered and converted without asking...), but unfortunately, I haven't yet found convenient ones.
+For small csv files, Excel is often my tool number one.
+Even better, if I need to create a couple of simple calculated columns and I don't want to create an R script for such a quick one-off job, Excel is the fastest choice - just open the csv, add columns with simple formulae, and save the result again as csv.
+By default, not the formulae but their results are saved.
+
+Csv files and Excel just have some caveats to be aware of.
+The field delimiter is a usual source of problems.
+Comma `,` is a default setting at least in the Angloamerican context, but then you need to have quotes around any text fields should they contain commas themselves.
+In this regard, `;` is a safer choice but less seen as default setting in Excel and elsewhere - it requires some more manual steps in data I/O, usually.
+Tab-delimited files are a nice thing as well, and tabs work well when copying and pasting data interactively from and to Excel - but tabs can be difficult since they are rendered in a way that is easy to mix up with spaces.
+
+Although I like to criticize Excel a lot, it was originally The Program that taught me how to code and model data - and how not to do it.
+Starting in 2016 in my first transport modelling job, Excel was my first and only data wrangling tool I used for example when formatting raw data to import into EMME forecasting software.
+I learned how to deal with field delimiting, certain data types, and formatting data into wide and long formats.
+Formatting csv or text file data with Excel for another program to read forces one to get rid of empty rows, merged titles, sum cells, many different datasets on the same sheet, and other things that look nice to a human eye but are a pain for machine I/O and data interoperability.
+Linking sheets and areas through formulae taught me a whole lot about joins and data matching, long before I knew anything about databases and relational data modelling.
+
+For anyone interested in coding at least a bit, I really recommend trying out the next tools, and letting Excel be just part of your workflow, instead of building your whole workflow inside Excel.
 
 **Recommended reading:**
 
-- [Geocomputation with R](https://geocompr.robinlovelace.net/) by Robin Lovelace et al.
+- [Why I migrated from Excel to R](https://outsiderdata.netlify.app/post/why-i-migrated-from-excel-to-r/) by Art Steinmetz
+- [R for Excel Users](https://rstudio-conf-2020.github.io/r-for-excel/), especially Chapter 7: [Tidying](https://rstudio-conf-2020.github.io/r-for-excel/tidying.html)
+
+## R
+
+R is my great love, so much that I really need to control myself here and keep it short.
+Briefly put, R is a data-focused programming language and environment that lets you make your data wrangling and analysis steps into a reproducible, trackable process, from which others and, most importantly, future you can learn later.
+Compared to other programming languages, the best feature of R in my opinion is that it treats any variable as a vector by default, and dealing with vectors and tabular data in R is extremely comfortable.
+With R, I quickly learned a way of thinking where the programmer does not need to do things tediously element by element, with `for` loops and element-wise `if ... else` conditions, but everything works by *mapping functions to vectors* or other *collections* of values, by default.
+So, kind of the same as extending a formula into a range of cells in Excel, but done in commands that are located in a logical order and can be re-run at any time.
+
+Anything is possible with R.
+Anything.
+There are many things that are absolutely more reasonable to do in other languages and environments, but the multitude of libraries and applications of R surprises me again and again.
+I think R is at its best in scriptable use cases, where things with data are done step by step in a certain order.
+There are plenty of applications of R in web servers, interactive dashboards, and other cases where R code is used asynchronously and interactively, though.
+But for implementing step-wise data manipulation, analysis, and visualization jobs, R is a great tool to familiarize oneself with.
+At start, forcing things into repeatable steps instead of pointing and clicking in a desktop UI software feels frustrating.
+In the long run, though, I have noted how R has taught me extremely lot of algorithmic thinking - decomposing problems into computable pieces, seeing which of those individual pieces are in fact essential for solving the problem, and how they can be implemented more efficiently and understandably for humans.
+
+Another nice feature about R is the community and ecosystem around it - people communicating and writing about R tend to be extremely kind, and over the years, the R open source community has become exceptionally helpful and human-centric in many ways, when compared to some other technology niches, I think.
+R is often used by non-programmers, people who come from "business domains" rather than from computer science, for instance:
+this often results in their R-focused job to be well understandable by non-technical people as well.
+Moreover, compared to many other software libraries, R packages tend to be documented in an elegant, comprehensive and human-readable way, and they are often full of practical examples.
+R itself encourages this through a feature called `vignettes` makes it easy to write and render package feature demonstrations that combine the code and its results in a visual format.
+
+I could go on telling about how cool R is forever, but I'll now move on the R packages I use and recommend the most:
+
+- [tidyverse](http://tidyverse.org/) is a famous R package ecosystem widely used in any data handling use cases with R.
+It provides elegant and "human-friendly" methods for data wrangling, analysis, and visualization, and has in fact evolved into its own sub-syntax and code smell as opposed to base R.
+Tidyverse tools are especially useful for [functional programming](https://en.wikipedia.org/wiki/Functional_programming).
+- [data.table](https://rdatatable.gitlab.io/data.table/) is my choice whenever I want big datasets (over 1M rows) to behave nice and fast even with complex calculations.
+It has some unique features as well, such as [non-equi and range joins](https://search.r-project.org/CRAN/refmans/data.table/html/foverlaps.html).
+- [sf](https://r-spatial.github.io/sf/) is my default geographical data tool that works well with spatial data while integrating nicely to tidyverse tools.
+It uses the so-called Simple Features interface that is also found in PostGIS, for instance.
+This way, it is easy to implement things in `sf` first locally, and then extend the same logic to a PostGIS server, for instance.
+[lwgeom](https://r-spatial.github.io/lwgeom/) extends `sf` where the capabilities of its basic features end.
+- `DBI` and `RPostgres` are my everyday workhorses for integrating R and PostgreSQL.
+[db.rstudio.com](https://db.rstudio.com/) gives maybe the best and most up-to-date overview of working with databases in R.
+- Domain-specific packages: `{stplanr}`, `{tidytransit}`
+
+There are also many great transportation domain specific R packages, such as [stplanr](https://docs.ropensci.org/stplanr/) for transport analysis use cases in general, and [tidytransit](http://tidytransit.r-transit.org/) for GTFS based transit analysis.
+While I like their existence and the knowledge ecosystem around them a lot, I have not used them that much as a transit-focused data engineer.
+These packages provide a lot of nice abstraction and make it easier to focus on the domain problems instead of building the calculation process to solve the problems from scratch - but in fact, I have liked a lot to build things from scratch, and create the solution processes myself.
+At the end of the day, those packages are using the same core building blocks that I do when doing things with R, and I feel like I would have taken a shortcut and missed a lot of software engineering learning if I had started from those domain packages and not from "pure and basic" R.
+But, my nature tends to draw me towards the technical issues from the domain issues - someone else would not stand the technical ones a second, which I understand well...
+
+**Recommended reading:** [Geocomputation with R](https://geocompr.robinlovelace.net/) by Robin Lovelace et al.
 
 ## Python
 
