@@ -2,11 +2,12 @@ delete_merged_file: true
 chapter_name: "Chapter "
 rmd_files: [
   "index.Rmd",
-  "00-time.Rmd",
-  "00-place.Rmd",
-  "00-gtfs.Rmd",
-  "00-hfp.Rmd",
-  "00-validation.Rmd",
-  "00-tools.Rmd",
-  "99-references.Rmd",
+  "00-time.Rmd"
+  #,
+  # "00-place.Rmd",
+  # "00-gtfs.Rmd",
+  # "00-hfp.Rmd",
+  # "00-validation.Rmd",
+  # "00-tools.Rmd",
+  # "99-references.Rmd",
 ]

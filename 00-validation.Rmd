@@ -27,3 +27,5 @@
     - Successive records of certain event types (e.g., alternation of DOO and DOC)
     - Validation by journey
     - Validation by vehicle (need to select time window, e.g., date)
+
+\newpage

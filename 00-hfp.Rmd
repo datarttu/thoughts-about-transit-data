@@ -34,3 +34,5 @@
     - Alternative strategies: 
       - Either save the "root" data only, making it possible to restore aggregates again later
       - Or save aggregated data and discard root data: only do this if absolutely sure
+
+\newpage

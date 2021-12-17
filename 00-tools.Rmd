@@ -1,18 +1,49 @@
 # Useful data tools {#tools}
 
-- Excel
-  - Excel date meme here ...
-- R
-  - tidyverse
-  - data.table
-  - sf
-  - DBI, RPostgres
-  - Rcpp
-  - Domain-specific packages: `{stplanr}`, `{tidytransit}`
-- PostgreSQL
-  - PostGIS
-  - pgRouting
-  - TimescaleDB, Citus / Hyperscale
-- Python
-- QGIS
-- Git
+## Excel - a handy scratchpad
+
+Excel date meme here ...
+
+**Recommended reading:** [Why I migrated from Excel to R](https://outsiderdata.netlify.app/post/why-i-migrated-from-excel-to-r/) by Art Steinmetz
+
+## R
+
+- tidyverse
+- data.table
+- sf
+  - Geopackage for QGIS interoperability
+- DBI, RPostgres
+- Rcpp
+- Domain-specific packages: `{stplanr}`, `{tidytransit}`
+
+**Recommended reading:**
+
+- [Geocomputation with R](https://geocompr.robinlovelace.net/) by Robin Lovelace et al.
+
+## Python
+
+**Recommended reading:** [Automating GIS-processes](https://autogis-site.readthedocs.io/en/latest/index.html)
+
+## PostgreSQL
+
+- PostGIS
+- pgRouting
+- TimescaleDB, Citus / Hyperscale
+
+**Recommended reading:**
+
+- [The Art of PostgreSQL](http://blog.cleverelephant.ca/archive) by Dimitri Fontaine
+- [Crunchy Data Blog](https://blog.crunchydata.com/blog)
+- [Writings by Paul Ramsey](http://blog.cleverelephant.ca/archive), a PostGIS core contributor
+
+## QGIS
+
+**Recommended reading:** [Movement Data in GIS](https://anitagraser.com/movement-data-in-gis/) by Anita Graser
+
+## Git
+
+**Recommended reading:** [Happy Git and GitHub for the useR](https://happygitwithr.com/) by Jenny Bryan & Jim Hester
+
+## Bash
+
+**Recommended reading:** [Data Science at the Command Line](https://datascienceatthecommandline.com/2e/) by Jeroen Janssens

@@ -11,3 +11,5 @@
   - No scheduling source information: e.g., Hastus places
   - Redundancy in HSL GTFS data
 - Some useful resources for further reading
+
+\newpage

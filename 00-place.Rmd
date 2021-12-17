@@ -30,3 +30,5 @@
   - But also note that even the basic parts can change in time: stops and network links are added, deleted and modified
     - An ideal data model should be able to reflect these changes transparently in the hierarchy.
     - In addition to transit time dimension(s), we have also the "meta" time dimension.
+
+\newpage

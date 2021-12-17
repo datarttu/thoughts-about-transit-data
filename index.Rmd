@@ -1,7 +1,7 @@
---- 
-title: "Blog Posts about Transit Data"
+---
+title: "Thoughts about Transit Data"
 author: "Arttu Kosonen"
-date: "`r Sys.Date()`"
+date: "`r format(Sys.Date(), '%d.%m.%Y')`"
 bibliography:
 - book.bib
 - packages.bib
@@ -9,36 +9,44 @@ link-citations: yes
 knit: bookdown::render_book
 header-includes:
   - \usepackage{awesomebox}
+urlcolor: blue
 ---
 
-# Introduction {-}
+# Introduction {.unnumbered}
 
-This is a series of blog post styled texts where I consider some aspects of public transport data modelling, based on my personal experience writing my Master's thesis from year 2019 on, and working at HSL (Helsinki Region Transport) as transit planner and data engineer.
-In the following sections, I will discuss how time and place can be represented in transit data, how to validate data, what planning- and reality-related transit data can look like, and what tools I tend to use to handle these data.
+This is a series of texts where I consider some aspects of public transport data modelling, based on my personal experience writing my Master's thesis from year 2019 on, and working at HSL (Helsinki Region Transport) as transit planner and data engineer.
+In the following sections, I will discuss my thoughts about time and place representation in transit data, how to convert and validate real-time transit operations data for analytical use, and what software tools I have used and like to recommend for dealing with transit data.
 
-Although not all the example data I'm using are publicly available as such, the original realtime sources are, and I will not be using any secret or sensitive data.
-Thus you may distribute my work further as a learning material, for instance.
-However, note that these texts are not exhaustive, scientifically proved facts or common best practices, but rather my own thoughts and experiences.
+That these texts are not exhaustive, scientifically proved facts or common best practices, but rather my own thoughts and experiences.
 There is no answer how to best model and use transit data, and what tools to use for it - it depends!
 And I've only just started my own path in the fascinating world of transit data modelling.
 
-- I like to distinguish between planned and realized transit when modelling data ...
-  - Both are simple and complex in their own ways
-  - Space and time are represented differently in some cases
-  - GTFS and HFP as examples
-- Both planned and realized data are always *messy*, rarely perfect: therefore, *validation*
-  - A topic that often gets too little attention, comparable to importance of testing in software development
-- Tools that have taught me so much
-  - Transit data soon gets something that will not fit into Excel
-
 ```{r message=FALSE, warning=FALSE, include=FALSE}
-# automatically create a bib database for R packages
+library(readr)
+library(knitr)
+library(magrittr)
+library(kableExtra)
 knitr::write_bib(c(
   .packages(), 'bookdown', 'knitr', 'rmarkdown'
 ), 'packages.bib')
-knitr::opts_chunk(message = FALSE,
-                  warning = FALSE,
-                  include = FALSE,
-                  echo = TRUE,
-                  fig.align = 'center')
+knitr::opts_chunk$set(message = FALSE,
+                      warning = FALSE)
 ```
+
+## Estimated time use {.unnumbered}
+
+For the 5 ECTS I wish to acquire from Aalto University with this collection of texts, I have calculated a *rough* estimate of time I've spent for different topics.
+The actual work is related to my Master's thesis project for HSL and my day-to-day work at HSL thereafter.
+However, during the last two years, I have spent countless hours of my own time for all these topics, to learn about them deeper than what would have been needed to just do my work at HSL.
+For instance, none of the software tools I present here would be absolutely necessary for the work at HSL per se, but developing my tool skills in my free time has served both my studies and working capabilities a lot.
+
+```{r estimated-time-use, echo=FALSE}
+read_csv('extdata/estimated-time-use.csv') %>%
+  suppressMessages() %>%
+  kable(format = 'latex') %>%
+  column_spec(1, width = '10em') %>%
+  column_spec(2, width = '25em') %>%
+  column_spec(3, width = '5em')
+```
+
+\newpage
