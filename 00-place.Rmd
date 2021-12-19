@@ -1,34 +1,126 @@
 # Place in transit data {#place}
 
-- "Where" do passengers travel? What is the "route" of the bus?
-- Stops
-  - Points where pax can board and exit
-  - Or... areas? Linear features?
-    - Modelling stop detection area with radius, example from Transitlog
-- Hastus (scheduling) _places_
-  - It makes no sense to plan run times and schedules for every stops
-  - Instead, we use certain stops as "definitive"
-  - Can be also used to describe and analyze accessibility, service coverage, etc. from a planner's perspective, whereas individual stops would be too detailed and redundant
-  - Place can be mapped to multiple stops
-    - Must consider this with place-to-place analysis: which stops are actually used to represent the place?
-    - Multiple stops of the same route pattern can belong to the same place
-      - Therefore stops must be flagged as active/inactive for the place by each route pattern
-- What does a route mean?
-  - Intuitively: where the bus / tram service goes
-  - Route pattern: ordered list of stops (and, thus, schedule places): relevant, because pax cannot enter/exit elsewhere
-  - Route _itinerary_: path through the network to visit the stops
-    - Often seen as single linestring per route pattern. E.g., GTFS.
-    - However, consists of network links that are often used by multiple route patterns.
-    - Network-based modelling is important especially when analyzing the infrastructure performance.
-    - Often the itinerary can change while the stop list does not
-      - E.g., detour due to construction site
-      - Affects run times between stops
-- Conclusion:
-  - Like with time concepts, also here we have a hierarchy that is worth identifying
-  - Data models should reflect this hierarchy to avoid both repeated and ambiguous data
-  - Routes are mapped to stops and network links, and stops and network links are mapped to geographical locations, and these mappings can change
-  - But also note that even the basic parts can change in time: stops and network links are added, deleted and modified
-    - An ideal data model should be able to reflect these changes transparently in the hierarchy.
-    - In addition to transit time dimension(s), we have also the "meta" time dimension.
+Words like *place*, *location*, and *position* are commonly used in transit planning and transit data modelling.
+Just like *time*, these words are overloaded.
+I have noted that it's often not that clear what exactly is meant: instead, it must be figured out implicitly from the context, which is not always easy, especially for new people, such as software developers, who are only underway onboarding the business domain.
+We could do better documenting our assumptions and mental models of these terms and their usage.
+
+In this text, I'll try to open up my thoughts about the meanings of place, location, and position when it comes to *transit vehicles*.
+There's of course much more to the topic than this - for instance, meanings of place for *passengers* moving in the transit system would be a whole different story, but I'll not go into that this time.
+
+**About the three terms:**
+I know there are different personal connotations, as well as more or less different official meanings, to *place*, *location*, and *position*.
+Unfortunately at HSL, at least, we don't have exhaustive definitions for these words to use in data models, for instance, and I think in practice we have a lot of overlap in their usage.
+I'll not try to give the right answer to the definition question in this post.
+Rather, I'll be using any one of these for approximately same meanings.
+Perhaps one nuance to note is that I consider *place* a more general, area-like term, while *location* and especially *position* refer to a more or less exact point in a space.
+You may well agree or disagree with me!
+
+## Stops - anchor points for vehicles (and passengers)
+
+A *stop* is a basic unit in a transit system in many ways.
+It is the "service interface" for passengers who use stops to enter and exit transit vehicles, to wait for them, and to transfer between vehicles.
+Conversely, for the transit vehicles, stops are usually the 
+
+### Are stops points, areas, linear features?
+
+
+
+::: {.tipblock data-latex=""}
+-   Be consistent and careful in how you determine the *point location* of a stop in your data model.
+Is it to always represent where the stop sign pole is located?
+Or does it rather represent the median or average position where vehicles actually seem to stop?
+These can differ even tens of meters for large, busy stops.
+-   For the aforementioned reason, do not rely on modelling your stop as a point only.
+At least a radius around the point is needed to catch the vehicles that stop near the point at variable positions.
+-   A stop radius is straightforward to use in vehicle-to-stop matching algorithms, especially in realtime applications.
+However, it can be too rough for an estimate of the real area used by vehicles at that stop, especially if route geometries traverse through the resulting circle in complicated ways (common in terminal areas, especially), or if successive stops on a route end up with intersecting circles.
+-   To address that problem, you can model the stop area with a polygon that represents the real stopping area while leaving out "outliers", or by defining the stop as a distance coverage interval along the related road or track links, which then catches correct distance values of vehicle positions projected to the links from GPS coordinates.
+See Part \@ref(gps-vs-linear) for more information.
+:::
+
+### When is a vehicle *at stop*?
+
+*Stop events*, such as realized departure and arrival times of trips by stop, are not "real" events.
+They are artificial in the sense that they depend completely on other, multiple underlying facts:
+where the stop point was located in the planning database, how the effective stop area was modeled (e.g. circle or polygon around the stop), what the role of the stop was on the trip route and if there was a risk of mismatching e.g. because the route goes through the stop area twice or more, 
+
+::: {.tipblock data-latex=""}
+-   If using plain stop events in your data model without a view to how these events were generated, treat them critically.
+Can you trust that the stop points and areas were created realistically so the vehicles could match the stop easily?
+Can you trust the accuracy of vehicle computer GPS devices so they have produced precise position values when matching the stop?
+-   Consider if it's possible to generate, or at least validate, the stop events afterwards with the facts needed for stop matching: pure vehicle position (GPS) data, the original stop locations and areas (such as radius around the stop point), planned trip route geometry, and the stop as part of the route.
+This way you can verify whether the stop matching process has worked correctly - this can be as simple a process as checking samples of GPS data together with the stops on a map.
+-   Using those facts rather than stop events generated on the fly in real time, you can adjust the stop location, area, and matching parameters, and re-run the matching process afterwards, if required.
+Having only stop events matched in real time can be pretty unreliable, since you cannot back up and fix errors like this.
+-   Storing all these facts and generating stop events afterwards doesn't mean you have to store huge amounts of data.
+You can define a shorter lifespan for big data, such as raw GPS points: keep them as long as you need for the matching and validation process - say, a week - and discard old data regularly from your database.
+-   The more critical realistically functioning stop events are for your transit KPIs, the better you should log and monitor their data quality and reliability of their generation process.
+:::
+
+## What is between stops
+
+### In-service vehicle status
+
+At stops, between stops, unknown ...
+
+### Paths between stops
+
+Not set in stone; stop A -> stop B != itinerary from A -> B
+Seen implicitly when stop-to-stop distances differ
+
+Vehicle is located on a street/track link even without any ref to any stop
+
+::: {.tipblock data-latex=""}
+-   A transit route pattern can be expressed as an ordered list of stops or as an ordered list of directed street or track links.
+Ideally, include both of them in your data model, and make sure to validate that these two go hand in hand without logical conflicts.
+-   Stop and link based paths do not determine each other automatically but require human intervention.
+A route through a link does not necessarily use all available stops at that link.
+A route from stop A to stop B does not necessarily use the shortest path of links between the stops.
+-   Vehicle status in relation to route pattern stops, such as [VehicleStopStatus in GTFS-RT](https://developers.google.com/transit/gtfs-realtime/guides/vehicle-positions#vehiclestopstatus), is not a fact coming out of the blue but requires a reliable algorithm to detect whether the vehicle is approaching, stopped at, or departing from a given stop.
+It'd be nice if your data model not only makes available not only this status information but also how it is generated - e.g., the raw GPS vehicle position, modelled stop locations and areas at that time, as well as parameters used for the matching.
+:::
+
+## Vehicles on a map or en route? {#gps-vs-linear}
+
+GPS / X,Y coordinates
+
+Position *along* route, or along path between stops
+
+Linear referencing: what is needed to do properly
+
+Best have the both: linear ref. to see movements on the network, and X,Y to evaluate if linear ref. is working correctly
+
+## Conclusion
+
+I would say there are at least three essential ways to express *where a transit vehicle serving a trip is located*:
+
+1)  Plain GPS coordinates of the vehicle in 2D space.
+1)  In relation to road or track *network*: "on link X, N meters from the link start".
+The distance could also be relative, i.e., a proportion from 0 to 1 of the link length.
+1)  In relation to *stops*: "at stop X" or "between stops X and Y", possibly with a numeric value telling how much distance is left before stop Y, for instance.
+
+Ideally, we could monitor all of these in real time, as well as store them as history data.
+This way, different purposes such as passenger information, transit KPIs, and planning processes based on history data, requiring vehicle position information in different formats, could all be satisfied.
+I think it's important to note different needs in realtime and data warehousing contexts:
+in real time, all of the three ways to express the vehicle location should be available *easily and quickly* - in fact, the more redundancy, the better.
+In data warehousing on the other hand, redundancy should be avoided in my view:
+not only because of inefficient use of storage space and processing capacity, but also because storing these three types of data as plain *results* can lead to ambiguity, conflicts, and invalid data, if we note in the end that they do not fully correspond to each other.
+Instead, in data warehousing we should identify how each of the three data type is constructed logically from the building blocks - GPS locations, network link and stop geometries, routes as link and stop sequences - and make the three accessible as *views* generated by joins of these building blocks.
+This way, the data would remain consistent and auditable afterwards.
+
+So, in a way, the three ways to express the vehicle location are just views to the same fact, using different frameworks: 2D map, stops, and network links.
+
+The same logic can be applied to other essential components and actors of a transit system, too:
+where passengers move in time and space, and whether to inspect this "where" in relation to space, stops, vehicles, street network, and so on.
+Or how transit route itineraries are modelled - starting from stops or from street network links - and how stops and links are dependent on each other.
+
+Modelling the "wheres" of a transit system requires a hierarchy of components working together from top to bottom and vice versa.
+Coordinate values, route geometries, stop points, and links are not enough alone, but unambiguously defined relationships between them are needed.
+Such a model is not easy to create, as we have seen many times in the new transit data registry project Jore 4.0 at HSL.
+Just try to ingest all the essentials of [Transmodel](http://www.transmodel-cen.eu/model/index.htm) as a developer without a long background in transit domain...
+
+As with the time topic discussed in Chapter \@ref(time), I recommend not to simplify things that feel uncomfortably complex, but rather to think carefully through the complexity, and document those thoughts, mental models, related data model design decisions, and ultimately the results in understandable human language and pictures.
+The hardest things are not the data, code and computing themselves, but rather, getting humans to understand each other what they meant when working on these.
 
 \newpage
