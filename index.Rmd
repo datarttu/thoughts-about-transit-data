@@ -34,7 +34,7 @@ knitr::opts_chunk$set(message = FALSE,
 
 ## Estimated time use {.unnumbered}
 
-For the 5 ECTS that I wish to acquire from Aalto University text collection, I have calculated a *rough* estimate of time I've spent with topics related to these texts.
+For the 5 ECTS that I wish to acquire from Aalto University, I have calculated a *rough* estimate of time I've spent with topics related to these texts.
 These hours come, in principle, on top of my paid working time and time spent to my Master's thesis, although they all have to do with the same topics.
 
 ```{r estimated-time-use, echo=FALSE}
