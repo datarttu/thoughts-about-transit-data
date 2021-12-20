@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Thoughts about Transit Data</title>
+  <meta name="description" content="Thoughts about Transit Data" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Thoughts about Transit Data" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Thoughts about Transit Data" />
+  
+  
+  
+
+<meta name="author" content="Arttu Kosonen" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+
+<link rel="next" href="time.html"/>
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./index.html">Thoughts about Transit Data</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Introduction</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#estimated-time-use"><i class="fa fa-check"></i>Estimated time use</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="time.html"><a href="time.html"><i class="fa fa-check"></i><b>1</b> Time in transit data</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="time.html"><a href="time.html#times-durations-deviations"><i class="fa fa-check"></i><b>1.1</b> Times, durations, deviations</a></li>
+<li class="chapter" data-level="1.2" data-path="time.html"><a href="time.html#operating-days-and-30-hour-clock"><i class="fa fa-check"></i><b>1.2</b> Operating days and 30-hour clock</a></li>
+<li class="chapter" data-level="1.3" data-path="time.html"><a href="time.html#plan-vs-real"><i class="fa fa-check"></i><b>1.3</b> From planned to real times</a></li>
+<li class="chapter" data-level="1.4" data-path="time.html"><a href="time.html#human-times"><i class="fa fa-check"></i><b>1.4</b> Human times</a></li>
+<li class="chapter" data-level="1.5" data-path="time.html"><a href="time.html#more-and-more-time-dimensions"><i class="fa fa-check"></i><b>1.5</b> More and more time dimensions…</a></li>
+<li class="chapter" data-level="1.6" data-path="time.html"><a href="time.html#dont-forget-the-time-zone"><i class="fa fa-check"></i><b>1.6</b> Don’t forget the time zone!</a></li>
+<li class="chapter" data-level="1.7" data-path="time.html"><a href="time.html#conclusion"><i class="fa fa-check"></i><b>1.7</b> Conclusion</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="place.html"><a href="place.html"><i class="fa fa-check"></i><b>2</b> Place in transit data</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="place.html"><a href="place.html#stops---anchor-points-for-vehicles-and-passengers"><i class="fa fa-check"></i><b>2.1</b> Stops - anchor points for vehicles (and passengers)</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="place.html"><a href="place.html#are-stops-points-areas-or-linear-features"><i class="fa fa-check"></i><b>2.1.1</b> Are stops points, areas, or linear features?</a></li>
+<li class="chapter" data-level="2.1.2" data-path="place.html"><a href="place.html#when-is-a-vehicle-at-stop"><i class="fa fa-check"></i><b>2.1.2</b> When is a vehicle <em>at stop</em>?</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="place.html"><a href="place.html#what-is-between-stops"><i class="fa fa-check"></i><b>2.2</b> What is between stops</a></li>
+<li class="chapter" data-level="2.3" data-path="place.html"><a href="place.html#gps-vs-linear"><i class="fa fa-check"></i><b>2.3</b> Vehicles on a map or en route?</a></li>
+<li class="chapter" data-level="2.4" data-path="place.html"><a href="place.html#conclusion-1"><i class="fa fa-check"></i><b>2.4</b> Conclusion</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="tools.html"><a href="tools.html"><i class="fa fa-check"></i><b>3</b> Useful data tools</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="tools.html"><a href="tools.html#excel---a-handy-scratchpad"><i class="fa fa-check"></i><b>3.1</b> Excel - a handy scratchpad</a></li>
+<li class="chapter" data-level="3.2" data-path="tools.html"><a href="tools.html#r"><i class="fa fa-check"></i><b>3.2</b> R</a></li>
+<li class="chapter" data-level="3.3" data-path="tools.html"><a href="tools.html#python"><i class="fa fa-check"></i><b>3.3</b> Python</a></li>
+<li class="chapter" data-level="3.4" data-path="tools.html"><a href="tools.html#postgresql"><i class="fa fa-check"></i><b>3.4</b> PostgreSQL</a></li>
+<li class="chapter" data-level="3.5" data-path="tools.html"><a href="tools.html#qgis"><i class="fa fa-check"></i><b>3.5</b> QGIS</a></li>
+<li class="chapter" data-level="3.6" data-path="tools.html"><a href="tools.html#git"><i class="fa fa-check"></i><b>3.6</b> Git</a></li>
+<li class="chapter" data-level="3.7" data-path="tools.html"><a href="tools.html#bash-and-other-command-line-tools"><i class="fa fa-check"></i><b>3.7</b> Bash and other command line tools</a></li>
+<li class="chapter" data-level="3.8" data-path="tools.html"><a href="tools.html#final-words"><i class="fa fa-check"></i><b>3.8</b> Final words</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Thoughts about Transit Data</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="header">
+<h1 class="title">Thoughts about Transit Data</h1>
+<p class="author"><em>Arttu Kosonen</em></p>
+<p class="date"><em>20.12.2021</em></p>
+</div>
+<div id="introduction" class="section level1 unnumbered">
+<h1>Introduction</h1>
+<p>This is a series of texts where I consider some aspects of public transport data modelling, based on my personal experience writing my Master’s thesis from year 2019 on, and working at HSL (Helsinki Region Transport) as transit planner and data engineer.
+In the following sections, I will discuss my thoughts about time and place representation in transit data, and what software tools I have used and like to recommend for dealing with transit data.</p>
+<p>These texts represent my own thoughts and experiences - not exhaustive, scientifically proved facts or common best practices.
+There is no answer how to best model and use transit data, and what tools to use for it - it depends!
+And I’ve only just started my own path in the fascinating world of transit data modelling.</p>
+<div id="estimated-time-use" class="section level2 unnumbered">
+<h2>Estimated time use</h2>
+<p>For the 5 ECTS that I wish to acquire from Aalto University text collection, I have calculated a <em>rough</em> estimate of time I’ve spent with topics related to these texts.
+These hours come, in principle, on top of my paid working time and time spent to my Master’s thesis, although they all have to do with the same topics.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+Topic
+</th>
+<th style="text-align:left;">
+Description
+</th>
+<th style="text-align:right;">
+Hours
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Time and place in transit data
+</td>
+<td style="text-align:left;">
+Identification of temporal and spatial attributes, their units, and relationships in transit planning and data models. Explored, tested and learned largely during Spring 2020, as I developed a schedule data model as part of my thesis, but the schedule model part was eventually dropped from the final thesis. In 2021, further learning in the Jore4 project at HSL.
+</td>
+<td style="text-align:right;">
+20
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+GTFS schedule &amp; network data
+</td>
+<td style="text-align:left;">
+Exploring the GTFS data model and open HSL GTFS datasets since 2019 when preparing for the thesis. Later on, many kinds of GTFS applications in analytics at HSL, due to the limited access to original planning data in Jore3.
+</td>
+<td style="text-align:right;">
+30
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+HFP operations data
+</td>
+<td style="text-align:left;">
+Core of my thesis: a lot of trial-and-error work with large amounts of HFP data since 2019, such as finding the best ways to format, store and query the data, and possible types of errors. Most of the hands-on work not visible in the thesis.
+</td>
+<td style="text-align:right;">
+40
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Data validation
+</td>
+<td style="text-align:left;">
+Conceptualization and proof-of-concept testing of data ”content” quality monitoring at HSL since end of 2020, as it was recognized that monitoring only the health of technical systems is not enough, and there is a need for a feedback loop of monitoring and actions to improve the reliability of both transit planning and operations data.
+</td>
+<td style="text-align:right;">
+20
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Data tools
+</td>
+<td style="text-align:left;">
+Learning about data and coding related tools as part of everyday work and studies. Especially software library documentation, vignettes, and blog posts about technologies, techniques, workflows, and visualization of relational, spatiotemporal and movement data.
+</td>
+<td style="text-align:right;">
+30
+</td>
+</tr>
+</tbody>
+</table>
+<div style="page-break-after: always;"></div>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+
+<a href="time.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.pdf"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

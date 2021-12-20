@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 3 Useful data tools | Thoughts about Transit Data</title>
+  <meta name="description" content="Chapter 3 Useful data tools | Thoughts about Transit Data" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 3 Useful data tools | Thoughts about Transit Data" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 3 Useful data tools | Thoughts about Transit Data" />
+  
+  
+  
+
+<meta name="author" content="Arttu Kosonen" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="place.html"/>
+
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./index.html">Thoughts about Transit Data</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Introduction</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#estimated-time-use"><i class="fa fa-check"></i>Estimated time use</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="time.html"><a href="time.html"><i class="fa fa-check"></i><b>1</b> Time in transit data</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="time.html"><a href="time.html#times-durations-deviations"><i class="fa fa-check"></i><b>1.1</b> Times, durations, deviations</a></li>
+<li class="chapter" data-level="1.2" data-path="time.html"><a href="time.html#operating-days-and-30-hour-clock"><i class="fa fa-check"></i><b>1.2</b> Operating days and 30-hour clock</a></li>
+<li class="chapter" data-level="1.3" data-path="time.html"><a href="time.html#plan-vs-real"><i class="fa fa-check"></i><b>1.3</b> From planned to real times</a></li>
+<li class="chapter" data-level="1.4" data-path="time.html"><a href="time.html#human-times"><i class="fa fa-check"></i><b>1.4</b> Human times</a></li>
+<li class="chapter" data-level="1.5" data-path="time.html"><a href="time.html#more-and-more-time-dimensions"><i class="fa fa-check"></i><b>1.5</b> More and more time dimensions…</a></li>
+<li class="chapter" data-level="1.6" data-path="time.html"><a href="time.html#dont-forget-the-time-zone"><i class="fa fa-check"></i><b>1.6</b> Don’t forget the time zone!</a></li>
+<li class="chapter" data-level="1.7" data-path="time.html"><a href="time.html#conclusion"><i class="fa fa-check"></i><b>1.7</b> Conclusion</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="place.html"><a href="place.html"><i class="fa fa-check"></i><b>2</b> Place in transit data</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="place.html"><a href="place.html#stops---anchor-points-for-vehicles-and-passengers"><i class="fa fa-check"></i><b>2.1</b> Stops - anchor points for vehicles (and passengers)</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="place.html"><a href="place.html#are-stops-points-areas-or-linear-features"><i class="fa fa-check"></i><b>2.1.1</b> Are stops points, areas, or linear features?</a></li>
+<li class="chapter" data-level="2.1.2" data-path="place.html"><a href="place.html#when-is-a-vehicle-at-stop"><i class="fa fa-check"></i><b>2.1.2</b> When is a vehicle <em>at stop</em>?</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="place.html"><a href="place.html#what-is-between-stops"><i class="fa fa-check"></i><b>2.2</b> What is between stops</a></li>
+<li class="chapter" data-level="2.3" data-path="place.html"><a href="place.html#gps-vs-linear"><i class="fa fa-check"></i><b>2.3</b> Vehicles on a map or en route?</a></li>
+<li class="chapter" data-level="2.4" data-path="place.html"><a href="place.html#conclusion-1"><i class="fa fa-check"></i><b>2.4</b> Conclusion</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="tools.html"><a href="tools.html"><i class="fa fa-check"></i><b>3</b> Useful data tools</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="tools.html"><a href="tools.html#excel---a-handy-scratchpad"><i class="fa fa-check"></i><b>3.1</b> Excel - a handy scratchpad</a></li>
+<li class="chapter" data-level="3.2" data-path="tools.html"><a href="tools.html#r"><i class="fa fa-check"></i><b>3.2</b> R</a></li>
+<li class="chapter" data-level="3.3" data-path="tools.html"><a href="tools.html#python"><i class="fa fa-check"></i><b>3.3</b> Python</a></li>
+<li class="chapter" data-level="3.4" data-path="tools.html"><a href="tools.html#postgresql"><i class="fa fa-check"></i><b>3.4</b> PostgreSQL</a></li>
+<li class="chapter" data-level="3.5" data-path="tools.html"><a href="tools.html#qgis"><i class="fa fa-check"></i><b>3.5</b> QGIS</a></li>
+<li class="chapter" data-level="3.6" data-path="tools.html"><a href="tools.html#git"><i class="fa fa-check"></i><b>3.6</b> Git</a></li>
+<li class="chapter" data-level="3.7" data-path="tools.html"><a href="tools.html#bash-and-other-command-line-tools"><i class="fa fa-check"></i><b>3.7</b> Bash and other command line tools</a></li>
+<li class="chapter" data-level="3.8" data-path="tools.html"><a href="tools.html#final-words"><i class="fa fa-check"></i><b>3.8</b> Final words</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Thoughts about Transit Data</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="tools" class="section level1" number="3">
+<h1><span class="header-section-number">Chapter 3</span> Useful data tools</h1>
+<p>In this text, I’ll briefly present my favourite software tools for working with transit and movement data, since 2016.</p>
+<div id="excel---a-handy-scratchpad" class="section level2" number="3.1">
+<h2><span class="header-section-number">3.1</span> Excel - a handy scratchpad</h2>
+<p>Excel is widely used and known, and in that regard, great for data communication, sharing and interoperability.
+Today, it’s still my Swiss army knife in data wrangling - but only for small datasets that need visual inspection and modifications that are easiest to do interactively in the cell-based UI.
+Nowadays, implementing a full data wrangling and analysis workflow in Excel would be a red flag for me (while not generally, though - I don’t expect everyone to like the same tools and workflows I do).
+This is mainly because workflows are <strong>not serializable and reproducible</strong> in Excel, even if the data itself was.
+In a workbook filled with formulae and cross-references between cells and sheets, after a while I’m not really able to tell my line of thought and order of creating the analysis and calculation steps.
+And, if something is broken, it’s often extremely difficult to find where that happens, what comes before it and what it affects afterwards.
+This is the cost of the nice-feeling interactivity of Excel.</p>
+<p>Another reason for me not to prefer Excel as data I/O and analysis tool is that it’s designed <em>too</em> user-centric:
+Microsoft tries, understandably, abstract away from the user all the messiness a dataset and the required workflow could possibly have, and make everything appear nice and simple.
+Unfortunately this tends to do more harm than really simplify the user experience.
+A famous example is how everything in the raw data or user input that might even slightly resemble a date, or Excel’s internal date format (integer where <code>1</code> corresponds to <code>1900-01-01</code>), is forced into a date.
+In 99 % of my use cases, this is nothing that I want and just makes me spend another half a minute to convert a column back to <code>text</code>, for example, and rewrite the contents.
+It’s for a good reason that this feature has inspired so many memes, like Figure <a href="tools.html#fig:excel-meme">3.1</a>.</p>
+<div class="figure"><span style="display:block;" id="fig:excel-meme"></span>
+<img src="fig/excel-meme.png" alt="Meme from tumblr.com."  />
+<p class="caption">
+Figure 3.1: Meme from tumblr.com.
+</p>
+</div>
+<p>Compared to non-interactive tools, Excel fails with big datasets (say, over a million rows), and it’s not very practical for the user, either, to scroll through a high number of rows and order, filter and modify them by eye - I’d say right after the row number is more than a hundred.
+Cell value formatting is a great thing when making things for visual outputs - I really like to make simple reports with Excel where I get the correct amount of decimal places, and percentage and euro signs attached to my output in a second.
+But in actual data handling, it can be rather dangerous if Excel likes to render a csv file with only two decimal places for floats, or convert random integers into dates, or truncate timestamps coarser than original, while an alternative tool like Notepad++ shows what the csv <em>really</em> looks like, and how the computer will see the raw strings that csv contains.</p>
+<p>Meanwhile, Excel is <strong>great</strong> at creating, editing, and - to an extent, keeping in mind the date mess - opening <em>tabular</em> data.
+Visualizing a data table with columns aligned is much nicer and allows for much faster workflows than trying to mess with text editors.
+One could assume there are plenty of tools that have the Excel-like tabular view but not the cons of Excel (like knowing better than the users how they want their data rendered and converted without asking…), but unfortunately, I haven’t yet found convenient ones.
+For small csv files, Excel is often my tool number one.
+Even better, if I need to create a couple of simple calculated columns and I don’t want to create an R script for such a quick one-off job, Excel is the fastest choice - just open the csv, add columns with simple formulae, and save the result again as csv.
+By default, not the formulae but their results are saved.</p>
+<p>Csv files and Excel just have some caveats to be aware of.
+The field delimiter is a usual source of problems.
+Comma <code>,</code> is a default setting at least in the Angloamerican context, but then you need to have quotes around any text fields should they contain commas themselves.
+In this regard, <code>;</code> is a safer choice but less seen as default setting in Excel and elsewhere - it requires some more manual steps in data I/O, usually.
+Tab-delimited files are a nice thing as well, and tabs work well when copying and pasting data interactively from and to Excel - but tabs can be difficult since they are rendered in a way that is easy to mix up with spaces.</p>
+<p>Although I like to criticize Excel a lot, it was originally The Program that taught me how to code and model data - and how not to do it.
+Starting in 2016 in my first transport modelling job, Excel was my first and only data wrangling tool I used for example when formatting raw data to import into EMME forecasting software.
+I learned how to deal with field delimiting, certain data types, and formatting data into wide and long formats.
+Formatting csv or text file data with Excel for another program to read forces one to get rid of empty rows, merged titles, sum cells, many different datasets on the same sheet, and other things that look nice to a human eye but are a pain for machine I/O and data interoperability.
+Linking sheets and areas through formulae taught me a whole lot about joins and data matching, long before I knew anything about databases and relational data modelling.</p>
+<p>For anyone interested in coding at least a bit, I really recommend trying out the next tools, and eventually letting Excel be just part of your workflow, instead of building your whole workflow inside Excel.</p>
+<p><strong>Recommended reading:</strong></p>
+<ul>
+<li><a href="https://outsiderdata.netlify.app/post/why-i-migrated-from-excel-to-r/">Why I migrated from Excel to R</a> by Art Steinmetz</li>
+<li><a href="https://rstudio-conf-2020.github.io/r-for-excel/">R for Excel Users</a>, especially Chapter 7: <a href="https://rstudio-conf-2020.github.io/r-for-excel/tidying.html">Tidying</a></li>
+</ul>
+</div>
+<div id="r" class="section level2" number="3.2">
+<h2><span class="header-section-number">3.2</span> R</h2>
+<p>R is my great love, so much that I really need to control myself here and keep it short.
+Briefly put, R is a data-focused programming language and environment that lets you make your data wrangling and analysis steps into a reproducible, trackable process, from which others and, most importantly, future you can learn later.
+Compared to other programming languages, the best feature of R in my opinion is that it treats any variable as a vector by default, and dealing with vectors and tabular data in R is extremely comfortable.
+With R, I quickly learned a way of thinking where the programmer does not need to do things tediously element by element, with <code>for</code> loops and element-wise <code>if ... else</code> conditions, but everything works by <em>mapping functions to vectors</em> or other <em>collections</em> of values, by default.
+So, kind of the same as extending a formula into a range of cells in Excel, but done in commands that are located in a logical order and can be re-run at any time.
+R teaches one quickly to think and transform data in rectangular and <a href="https://r4ds.had.co.nz/tidy-data.html">tidy format</a>.
+On top of tidy data, observation-wise calculations as well as pivoting and aggregating data are easy to do.</p>
+<p>Anything is possible with R.
+Anything.
+There are many things that are absolutely more reasonable to do in other languages and environments, but the multitude of libraries and applications of R surprises me again and again.
+I think R is at its best in scriptable use cases, where things with data are done step by step in a certain order.
+There are plenty of applications of R in web servers, interactive dashboards, and other cases where R code is used asynchronously and interactively, though.
+But for implementing step-wise data manipulation, analysis, and visualization jobs, R is a great tool to familiarize oneself with.
+At start, forcing things into repeatable steps instead of pointing and clicking in a desktop UI software feels frustrating.
+In the long run, though, I have noted how R has taught me extremely lot of algorithmic thinking - decomposing problems into computable pieces, seeing which of those individual pieces are in fact essential for solving the problem, and how they can be implemented more efficiently and understandably for humans.</p>
+<p>Another nice feature about R is the community and ecosystem around it - people communicating and writing about R tend to be extremely kind, and over the years, the R open source community has become exceptionally helpful and human-centric in many ways, when compared to some other technology niches, I think.
+R is often used by non-programmers, people who come from “business domains” rather than from computer science, for instance:
+this often results in their R-focused job to be well understandable by non-technical people as well.
+Moreover, compared to many other software libraries, R packages tend to be documented in an elegant, comprehensive and human-readable way, and they are often full of practical examples.
+R itself encourages this through a feature called <code>vignettes</code> makes it easy to write and render package feature demonstrations that combine the code and its results in a visual format.</p>
+<p>I could keep on telling about how cool R is forever, but I’ll now move on the R packages I use and recommend the most:</p>
+<ul>
+<li><a href="http://tidyverse.org/">tidyverse</a> is a famous R package ecosystem widely used in any data handling use cases with R.
+It provides elegant and “human-friendly” methods for data wrangling, analysis, and visualization, and has in fact evolved into its own sub-syntax and code smell as opposed to base R.
+Tidyverse tools are especially useful for <a href="https://en.wikipedia.org/wiki/Functional_programming">functional programming</a>.</li>
+<li><a href="https://rdatatable.gitlab.io/data.table/">data.table</a> is my choice whenever I want big datasets (over 1M rows) to behave nice and fast even with complex calculations.
+It has some unique features as well, such as <a href="https://search.r-project.org/CRAN/refmans/data.table/html/foverlaps.html">non-equi and range joins</a>.</li>
+<li><a href="https://r-spatial.github.io/sf/">sf</a> is my default geographical data tool that works well with spatial data while integrating nicely to tidyverse tools.
+It uses the so-called Simple Features interface that is also found in PostGIS, for instance.
+This way, it is easy to implement things in <code>sf</code> first locally, and then extend the same logic to a PostGIS server, for instance.
+<a href="https://r-spatial.github.io/lwgeom/">lwgeom</a> extends <code>sf</code> where the capabilities of its basic features end.</li>
+<li><code>DBI</code> and <code>RPostgres</code> are my everyday workhorses for integrating R and PostgreSQL.
+<a href="https://db.rstudio.com/">db.rstudio.com</a> gives maybe the best and most up-to-date overview of working with databases in R.</li>
+<li>Domain-specific packages: <code>{stplanr}</code>, <code>{tidytransit}</code></li>
+</ul>
+<p>There are also many great transportation domain specific R packages, such as <a href="https://docs.ropensci.org/stplanr/">stplanr</a> for sustainable transport planning, and <a href="http://tidytransit.r-transit.org/">tidytransit</a> for GTFS based transit analysis.
+While I like their existence and the knowledge ecosystem around them a lot, I have not used them that much as a transit-focused data engineer.
+These packages provide a lot of nice abstraction and make it easier to focus on the domain problems instead of building the calculation process to solve the problems from scratch - but in fact, I have liked a lot to build things from scratch, and create the solution processes myself.
+At the end of the day, those packages are using the same core building blocks that I do when doing things with R, and I feel like I would have taken a shortcut and missed a lot of software engineering learning if I had started from those domain packages and not from “pure and basic” R.
+But, my nature tends to draw me towards the technical issues from the domain issues - someone else would not stand the technical ones a second, which I understand well…</p>
+<p><strong>Recommended reading:</strong> <a href="https://geocompr.robinlovelace.net/">Geocomputation with R</a> by Robin Lovelace et al.</p>
+</div>
+<div id="python" class="section level2" number="3.3">
+<h2><span class="header-section-number">3.3</span> Python</h2>
+<p>Lately, I haven’t been using Python that much.
+I still have a lot of experience in it, originating mostly from Python APIs of transport planning related desktop programs, such as ArcGIS, EMME and QGIS: these are still very useful.</p>
+<p>Compared to R, Python is much more widespread and common language, having a strong ecosystem not only in data science but also in web server and even frontend programming, scripting, testing, and what not.
+Python has great, well-documented, and widely used libraries in data wrangling: an example comparable to <code>tidyverse</code> is <a href="https://pandas.pydata.org/">pandas</a>.
+And, in geographical data as well: <a href="https://geopandas.org/en/stable/">geopandas</a> and Anita Graser’s <a href="https://anitagraser.github.io/movingpandas/">movingpandas</a> for movement data analysis.</p>
+<p>In principle, all the things I mentioned with R are possible with Python as well - it’s just a matter of taste, and path dependencies.
+Often people using Python or R, especially the non-programmer ones originally, have started using either one by coincidence.
+There’s no answer to whether R or Python is “better,” they can both be used as well and have just some different conventions, ecosystems, and of course, a different syntax and backend.
+I find it only a nice thing that we have so many good tools and ecosystems to choose from!
+Why I like R better in many data-related problems is that treating vectors and rectangular data in Python requires some more “boilerplate” code and additional syntax, whereas base R supports those natively, as said above.</p>
+<p>I’d strongly recommend Python as the first language to learn, because</p>
+<ul>
+<li>Python is a high level language, with a lot of abstraction over computer internals, making it easy to write, test, and understand;</li>
+<li>but it still has an unbelievable selection of features and tools, making it a good choice in many domains, not only in data science;</li>
+<li>it’s so widely used that you’ll find an endless amount of good (and also bad) example use cases to learn from;</li>
+<li>most data and GIS related desktop software have Python APIs, which makes them great practical use case environments to test and develop one’s new skills;</li>
+<li>code written in Python, a widespread language, is probably better readable and extensible by random other people and organizations than code written in R, for instance.</li>
+</ul>
+<p><strong>Recommended reading:</strong> <a href="https://autogis-site.readthedocs.io/en/latest/index.html">Automating GIS-processes</a></p>
+</div>
+<div id="postgresql" class="section level2" number="3.4">
+<h2><span class="header-section-number">3.4</span> PostgreSQL</h2>
+<p>PostgreSQL is an <a href="https://www.postgresql.org/docs/current/intro-whatis.html">object-relational database management system</a>.
+It’s open source, free to install and use, and my tool number one whenever I want to move away from my local development environment and scale up data storage and transformation, either because of large amount of data to handle (not fitting in RAM anymore), complex datasets (joins, need for indexes for fast access, and so on), or need to make the data available for others than me as well, or all of these reasons.</p>
+<p>Although any kinds of objects, such as nested JSON data structures, can be stored and queried in PostgreSQL, it teaches one to model reality to data structures in terms of tidy, rectangular datasets that are easy to join together with minimal ambiguity, redundancy and repetition.
+R is a great start here, and PostgreSQL (and any other SQL database engine, too) takes these principles even further - the database environment is some less flexible than R, since declaring tables, data types, relationships, indexes, views, and functions requires some more effort and planning there.
+For this reason, PostgreSQL makes for a good basis for persistent, “conservative” data whose structure and usage patterns are not changed and experimented with often but that on the other hand work quickly, reliably and are easy to scale up.
+And because of this, I’d say that R, Python and other flexibly typed, interpreted languages are the correct place to start testing, developing and experimenting with data, and one should move on to databases only when the data model has matured and settled enough.
+This is something that I learned a lot from in my thesis project - the development was slow most of the time, mostly because I tried to implement things in PostgreSQL right from the beginning.
+And unfortunately, PostgreSQL does not provide very nice syntax and tooling for quick experimenting, trial, and error.</p>
+<p>One of the great features of PostgreSQL is the extension ecosystem - extensions are mainly freely available, open source as well, and often pretty easy to install.
+My favourite extensions to PostgreSQL are</p>
+<ul>
+<li><a href="https://postgis.net/docs/manual-3.0/">PostGIS</a> that adds support for GIS data types and functions.
+PostGIS has a wide scale of features, and some features are not that generally available in other tools and environments.
+For instance, I use <a href="https://postgis.net/docs/manual-3.0/reference.html#Linear_Referencing">linear referencing</a> a lot - it basically means things like matching points to lines and using their relative distance value along the line, not the X/Y location of the point.
+Very useful in transit analysis, and often the only reason for me to use PostgreSQL &amp; PostGIS instead of R for a use case.</li>
+<li><a href="https://docs.pgrouting.org/latest/en/index.html">pgRouting</a>, in turn, extends PostGIS.
+It makes use of topology relationships of points and lines, and enables things like routing and network analysis algorithms.
+Again, very useful in transit analysis domain.</li>
+<li><a href="https://docs.timescale.com/api/latest/">TimescaleDB</a> adds support for automatic time column based <em>partitioning</em> of tables, meaning that a large table (e.g., over 100M rows) can be easily distributed into many tables under the hood, and thus the table can be efficiently queried using many parallel queries.
+In addition to this, Timescale provides a number of useful time series functions, such as “bucketing” of timestamps to arbitrary precision, such as 15 minutes.</li>
+</ul>
+<p><strong>Recommended reading:</strong></p>
+<ul>
+<li><a href="http://blog.cleverelephant.ca/archive">The Art of PostgreSQL</a> by Dimitri Fontaine</li>
+<li><a href="https://blog.crunchydata.com/blog">Crunchy Data Blog</a></li>
+<li><a href="http://blog.cleverelephant.ca/archive">Writings by Paul Ramsey</a>, a PostGIS core contributor</li>
+</ul>
+</div>
+<div id="qgis" class="section level2" number="3.5">
+<h2><span class="header-section-number">3.5</span> QGIS</h2>
+<p><a href="https://www.qgis.org/en/site/">QGIS</a> is my default, and today only, choice for a desktop GIS software that I can use to</p>
+<ol style="list-style-type: decimal">
+<li>explore any spatial data on the map, often supporting R and command line tools such as PostgreSQL client <code>psql</code> as part of my workflow;</li>
+<li>combine, transform, and visualize spatial data <em>ad hoc</em>;</li>
+<li>create automated Atlas reports, like “print a map view around all of these 50 stops, unique by <code>stop_id</code>, centering the map view by the stop location and choosing the scale from the <code>stop</code> attribute table.”</li>
+</ol>
+<p>Perhaps my favourite feature with QGIS are the <a href="https://docs.qgis.org/3.16/en/docs/user_manual/working_with_vector/expression.html">expressions</a>, which allow calculating an arbitrary value for almost any attribute available in not only the datasets in the project, but also the QGIS itself.
+Similarly, expressions can read attribute values from almost anywhere in the program.
+This way, I can easily make, for instance, layer visualization parameters such as colors, transparencies, sizes, and scales interactively dependent on the feature attribute values and project state, such as the current map view extent.</p>
+<p>QGIS is so much more than this only, but I’ve not really used most of its features that much yet.
+For instance, many of the things that the Python API could handle elegantly, I have liked to handle in R myself.
+Another example is relational data modelling and joins that would be available to do to a large extent inside QGIS, in a flexible and nicely responsive way, but so far, I have preferred doing that kind of modelling on the data source side, such as in PostgreSQL, and use QGIS to render the (almost) ready-made results.
+But this is of course a matter of taste, context, and requirements, again.</p>
+<p><strong>Recommended reading:</strong> <a href="https://anitagraser.com/movement-data-in-gis/">Movement Data in GIS</a> by Anita Graser</p>
+</div>
+<div id="git" class="section level2" number="3.6">
+<h2><span class="header-section-number">3.6</span> Git</h2>
+<p>Git is a tool for local as well as distributed version control of software source code and documentation.
+Lately though, it has become more and more popular in use cases not necessarily related to buildable or executable code - git can be a convenient choice for any content expressed in machine- and human-readable <em>text</em>.
+(Data other than text can be tracked in git as well, but it’s not as practical in terms of version history).
+Basically, git allows tracking the lifespan of files and individual text lines in them, making changes in controllable units (branches, commits and merges), controlling conflicts of overlapping modifications of the same content, and in case of a failure for instance, reverting back to any state of the content in history.</p>
+<p>I think git is mostly useful in managing <em>teamwork</em> around a project where several people work on same files and tasks.
+However, I’ve adopted it in my personal workflow as well, because</p>
+<ol style="list-style-type: decimal">
+<li>it’s a nice tool for storing the history of my modifications and work, compared to “dump” copies of the project repository every now and then;</li>
+<li>the git commits and branching force me to think my work and tasks to do in logical, limited pieces, instead of making random modifications ad hoc here and there.</li>
+</ol>
+<p>The latter often becomes a nuisance, though, and often I find myself creating awful dump commits with commit messages like “WIP.”
+For experimental workflows, I would not recommend git, since it requires some setup every time, and adhering to a reasonable commit “discipline,” to get the benefits of version control.</p>
+<p>A nice example of a non-software project managed with git and GitHub is the open source book Geocomputation with R that I already recommended under Chapter <a href="#R"><strong>??</strong></a> but whose <a href="https://github.com/Robinlovelace/geocompr">GitHub repository</a> is worth checking as well.</p>
+<p><strong>Recommended reading:</strong> <a href="https://happygitwithr.com/">Happy Git and GitHub for the useR</a> by Jenny Bryan &amp; Jim Hester</p>
+</div>
+<div id="bash-and-other-command-line-tools" class="section level2" number="3.7">
+<h2><span class="header-section-number">3.7</span> Bash and other command line tools</h2>
+<p>Bash is one of the most used command line interpreters in Linux and other UNIX-based operating systems (including Mac OS X).
+It’s actually just one of the many UNIX command line tools, but in my setup, it’s the basic command line environment to start from every time I open a terminal on my computer.</p>
+<p>Compared to desktop UIs, bash and other text-based command line tools provide an extremely efficient, scalable, scriptable, serializable and thus reproducible interface to the operating system, files, and their contents.
+With the command line, I can easily handle tasks like renaming 1000 csv files reliably based on a certain pattern, or adding a header row to every one of them, or importing all of them into PostgreSQL in an individual process while saving the output and any errors or warnings into a log file - everything in a couple of lines of commands <em>piped</em> together.
+So, bash and other tools provide me with a selection of building blocks that I can use creatively, in a modular manner, to automate my workflows that would take ages and be very error prone if done “by hand.”</p>
+<p><strong>Recommended reading:</strong> <a href="https://datascienceatthecommandline.com/2e/">Data Science at the Command Line</a> by Jeroen Janssens</p>
+</div>
+<div id="final-words" class="section level2" number="3.8">
+<h2><span class="header-section-number">3.8</span> Final words</h2>
+<p>All of the tools I described here, except MS Excel, are open source software - freely available, and open for anybody to contribute to the source code development.
+Why is open source so cool, in addition to being free of charge to the user?</p>
+<p>Often in proprietary software, such as ArcGIS for geographical data tasks or SPSS for statistical modelling, a user pays a high price to get a <em>reliable</em>, <em>usable</em> and <em>useful</em> product to solve business problems, and often the user expects good <em>support service</em> from the vendor to use the product effectively.
+This is very fine and OK in many cases, in my view.
+However, I personally find that proprietary products fail to teach the user how <em>things really work</em>.
+They tend to provide comfortable solutions, such as a map view with a ready-made routing engine - but then the basemap is locked to a certain vendor, instead of providing a standard interface to use with <em>any</em> basemap service of choice, and the routing engine is provided by another single vendor, such as Google, and the user has no choice in changing it to an OpenStreetMap based one for instance.
+This is an extreme example - the case is not that bad with ArcGIS for instance, luckily.
+But you may get the point: it is tempting to use nice-looking, simple, ready-made products, but then you give up on a lot of things to learn and apply yourself, which in the long run could be much more beneficial in your data / GIS career than having learnt only how a certain vendor has thought through the domain problems and what specific solutions they have to them.
+By committing to proprietary products, not only companies are stuck in vendor locks, but also the individuals working with and learning only the vendor-specific solutions and ways of thinking.</p>
+<p>Open source tools have traditionally not been as nicely designed and user friendly as the proprietary ones, but a whole lot of development has been done in recent years:
+QGIS is no more the buggy, weird-looking niche tool liked by development-oriented GIS people, for example.
+R and Python have taken over more and more space in data science from desktop tools such as SPSS lately as well.
+I don’t really know if this has happened because some critical point has been crossed, after which enough universities, companies and other actors have adopted those open source tools, which in turn has brought in more users applying, benchmarking and for instance blogging about them, as well as more interested developers to make the tools even better;
+or because the business model around open source software (e.g., support and expert services, instead of monolith product development) has become more sustainable and widespread.
+It would be interesting to know.
+But in any case, the role of open source software has become larger, and I’m happy about that, especially because that makes learning in a wide sense much easier and more inspiring:
+now not only the GIS and data science products themselves, and how to use those products, are available to learn from, but also their internals, the standards, data types, programming languages, and interfaces they are based on.
+With open source products, the end users can choose whether to use the “default” products, or whether to take just some of their building blocks to develop a tailored solution themselves.
+For instance, QGIS is extremely easy to start using from scratch, but meanwhile, it can be customized to a large extent for different purposes, modules from it can be used without the desktop UI part at all, it provides a server module, a Python interface, and so on.</p>
+<p>Open source is not a happy and ideal field only, though.
+It’s pretty sick how many software libraries and components extremely essential to the modern web, for instance, and thus also for many proprietary products from which big companies profit a lot of money, are maintained and developed by volunteers who basically get their compensation through charity, not through sustainable and fair business models.
+Even if the developers get fair monetary compensation for their work, it’s still problematic how dependent we are in many cases on their good will and commitment.
+For instance, the developers of the <a href="https://logging.apache.org/log4j/2.x/source-repository.html">log4j</a> logging library were originally, and still are as far as I know, a rather small group of experts who created the library voluntarily:
+and because of a long path dependency over time, the library became widespread in countless Java applications, and now that the famous security vulnerability was found in it, the original, small developer group is under a huge pressure to get fixes done.
+Who’s responsible?
+Nobody can fairly hold those developers accountable for the vulnerability, since it was not their choice in the beginning that millions of applications ended up using that software component which was freely available.</p>
+<p>I still think that open source continues to take over a larger role in the software world, and thus people, including me, are able to learn more and deeper about how software and code can actually help them solve their business problems.
+Open source has gave me so much in the last years that I really hope I’m soon experienced enough to give something back as well - contribute to source code development, documentation, and tutorials, for instance.
+I also wish to work for employers in the future who pay for such work:
+work that is not counted as their direct profit but benefits them through better expertise and knowledge of the one contributing to the OS development, and through the development, eventually better and better products for the business problems.</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="place.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.pdf"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,27 @@
+p.caption {
+  color: #777;
+  margin-top: 10px;
+}
+p code {
+  white-space: inherit;
+}
+pre {
+  word-break: normal;
+  word-wrap: normal;
+}
+pre code {
+  white-space: inherit;
+}
+
+div.tipblock, div.noteblock {
+  padding: 1em;
+  border-radius: 5px;
+}
+
+div.tipblock {
+  background: #bae0c4;
+}
+
+div.noteblock {
+  background: #bad6e0;
+}
