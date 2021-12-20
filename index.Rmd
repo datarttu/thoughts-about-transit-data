@@ -14,9 +14,9 @@ urlcolor: blue
 # Introduction {.unnumbered}
 
 This is a series of texts where I consider some aspects of public transport data modelling, based on my personal experience writing my Master's thesis from year 2019 on, and working at HSL (Helsinki Region Transport) as transit planner and data engineer.
-In the following sections, I will discuss my thoughts about time and place representation in transit data, how to convert and validate real-time transit operations data for analytical use, and what software tools I have used and like to recommend for dealing with transit data.
+In the following sections, I will discuss my thoughts about time and place representation in transit data, and what software tools I have used and like to recommend for dealing with transit data.
 
-That these texts are not exhaustive, scientifically proved facts or common best practices, but rather my own thoughts and experiences.
+These texts represent my own thoughts and experiences - not exhaustive, scientifically proved facts or common best practices.
 There is no answer how to best model and use transit data, and what tools to use for it - it depends!
 And I've only just started my own path in the fascinating world of transit data modelling.
 
