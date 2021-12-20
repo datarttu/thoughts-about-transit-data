@@ -25,7 +25,9 @@ Clock times, in turn, are expressed here like `11:35 (HH:MM)`, `11:35:14 (HH:MM:
 Everything is handled in local Finnish time, unless stated otherwise.
 :::
 
-::: {.tipblock data-latex=""}
+<p></p>
+
+::: {.tipblock .minipage data-latex=""}
 I'll be giving some tips for data modelling from my limited experience.
 They are best applicable to the PostgreSQL database environment, but similar concepts can of course be found in other environments too, such as R and Python.
 :::

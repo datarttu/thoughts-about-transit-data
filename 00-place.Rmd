@@ -22,7 +22,7 @@ A *stop* is a basic unit in a transit system in many ways.
 It is the "service interface" for passengers who use stops to enter and exit transit vehicles, to wait for them, and to transfer between vehicles.
 Conversely, for the transit vehicles, stops are usually the 
 
-### Are stops points, areas, linear features?
+### Are stops points, areas, or linear features?
 
 
 

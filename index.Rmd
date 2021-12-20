@@ -34,18 +34,24 @@ knitr::opts_chunk$set(message = FALSE,
 
 ## Estimated time use {.unnumbered}
 
-For the 5 ECTS I wish to acquire from Aalto University with this collection of texts, I have calculated a *rough* estimate of time I've spent for different topics.
-The actual work is related to my Master's thesis project for HSL and my day-to-day work at HSL thereafter.
-However, during the last two years, I have spent countless hours of my own time for all these topics, to learn about them deeper than what would have been needed to just do my work at HSL.
-For instance, none of the software tools I present here would be absolutely necessary for the work at HSL per se, but developing my tool skills in my free time has served both my studies and working capabilities a lot.
+For the 5 ECTS that I wish to acquire from Aalto University text collection, I have calculated a *rough* estimate of time I've spent with topics related to these texts.
+These hours come, in principle, on top of my paid working time and time spent to my Master's thesis, although they all have to do with the same topics.
 
 ```{r estimated-time-use, echo=FALSE}
-read_csv('extdata/estimated-time-use.csv') %>%
-  suppressMessages() %>%
-  kable(format = 'latex') %>%
-  column_spec(1, width = '10em') %>%
-  column_spec(2, width = '25em') %>%
-  column_spec(3, width = '5em')
+tb <- read_csv('extdata/estimated-time-use.csv') %>%
+  suppressMessages()
+
+if (knitr::is_latex_output()) {
+  tb %>%
+    kable(format = 'latex') %>%
+    column_spec(1, width = '10em') %>%
+    column_spec(2, width = '25em') %>%
+    column_spec(3, width = '5em')
+} else {
+  tb %>%
+    kable()
+}
+
 ```
 
 \newpage
