@@ -240,7 +240,7 @@ Figure \@ref(fig:plan-reality-loop) summarises the connection between planned an
 
 ```
 Planned trip starts at 4.5.2020 25:01:00 (operating day)
-Real trip started at 5.5.2020 25:02:03 (real day)
+Real trip started at 5.5.2020 01:02:03 (real day)
 > Set these to the same timeline by converting the planned trip:
   date 2020-05-04 + 25 hours + 1 minute + 0 seconds == 5.5.2020 01:01:00
 ```
