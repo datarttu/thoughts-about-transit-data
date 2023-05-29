@@ -6,11 +6,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 2 Place in transit data | Thoughts about Transit Data</title>
   <meta name="description" content="Chapter 2 Place in transit data | Thoughts about Transit Data" />
-  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.34 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 2 Place in transit data | Thoughts about Transit Data" />
   <meta property="og:type" content="book" />
-  
   
   
   
@@ -32,7 +31,6 @@
   
 <link rel="prev" href="time.html"/>
 <link rel="next" href="tools.html"/>
-<script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -50,8 +48,9 @@
 
 
 
-<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
-<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 
 
 <style type="text/css">
@@ -92,7 +91,7 @@ code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
 code span.at { color: #7d9029; } /* Attribute */
 code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
+code span.bu { color: #008000; } /* BuiltIn */
 code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
 code span.ch { color: #4070a0; } /* Char */
 code span.cn { color: #880000; } /* Constant */
@@ -105,7 +104,7 @@ code span.er { color: #ff0000; font-weight: bold; } /* Error */
 code span.ex { } /* Extension */
 code span.fl { color: #40a070; } /* Float */
 code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
+code span.im { color: #008000; font-weight: bold; } /* Import */
 code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 code span.kw { color: #007020; font-weight: bold; } /* Keyword */
 code span.op { color: #666666; } /* Operator */
@@ -119,6 +118,10 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -192,8 +195,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="place" class="section level1" number="2">
-<h1><span class="header-section-number">Chapter 2</span> Place in transit data</h1>
+<div id="place" class="section level1 hasAnchor" number="2">
+<h1><span class="header-section-number">Chapter 2</span> Place in transit data<a href="place.html#place" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>Words like <em>place</em>, <em>location</em>, and <em>position</em> are commonly used in transit planning and transit data modelling.
 Just like <em>time</em>, these words are overloaded.
 I have noted that it’s often not that clear what exactly is meant: instead, it must be figured out implicitly from the context, which is not always easy, especially for new people, such as software developers, who are only underway onboarding the business domain.
@@ -207,8 +210,8 @@ I’ll not try to give the right answer to the definition question in this post.
 Rather, I’ll be using any one of these for approximately same meanings.
 Perhaps one nuance to note is that I consider <em>place</em> a more general, area-like term, while <em>location</em> and especially <em>position</em> refer to a more or less exact point in a space.
 You may well agree or disagree with me!</p>
-<div id="stops---anchor-points-for-vehicles-and-passengers" class="section level2" number="2.1">
-<h2><span class="header-section-number">2.1</span> Stops - anchor points for vehicles (and passengers)</h2>
+<div id="stops---anchor-points-for-vehicles-and-passengers" class="section level2 hasAnchor" number="2.1">
+<h2><span class="header-section-number">2.1</span> Stops - anchor points for vehicles (and passengers)<a href="place.html#stops---anchor-points-for-vehicles-and-passengers" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>I’ll first discuss transit stops, because they are such an essential part in defining <em>where</em> a vehicle is located in a transit system.</p>
 <p>A <em>stop</em> is a basic unit in a transit system in many ways.
 It is the <em>service interface</em> for passengers who use stops to enter and exit transit vehicles, to wait for them, and to transfer between vehicles.
@@ -217,7 +220,7 @@ Therefore, stops comprise the important network of places that any transit syste
 Strictly thought, the space in between stops is not accessible to passengers (as long as they are travelling by transit and not by walking, for instance).</p>
 <p>Stops can be grouped together into more general constructs: most often, stations and terminals are technically collections of stops.
 <a href="https://developers.google.com/transit/gtfs/reference#stopstxt">GTFS</a> specification uses the <code>parent_station</code> attribute to enable this, for example.
-It may be relevant as well to add grouping labels to stops on opposite sides of a road: technically, such stops are totally separate points of service, they almost never even serve the same route/direction variants, but from a passenger’s point of view, they are considered very much belonging to the “same area.”
+It may be relevant as well to add grouping labels to stops on opposite sides of a road: technically, such stops are totally separate points of service, they almost never even serve the same route/direction variants, but from a passenger’s point of view, they are considered very much belonging to the “same area”.
 The same applies even more to multiple stops on different sides of an intersection, which are often used for transfers.</p>
 <p>In schedule run time planning, described in more detail in Chapter <a href="time.html#time">1</a>, not all stops belonging to a route or to a section shared by more routes are relevant, not even nearly.
 As long as there are several successive stops on a route in a similar traffic infrastructure and having similar passenger demand patterns, the real stop-to-stop vehicle run times tend to behave in a quite linear manner, i.e., the mean speed remains almost constant over multiple stop intervals.
@@ -227,8 +230,8 @@ The schedule planning software used at HSL, <a href="https://www.giro.ca/en-ca/o
 This is because stops may have different roles in different routes, for instance due to different usage patterns by passengers, or because a stop is used for regulating on route A but not on route B.
 Even more importantly, places are yet another way to group together multiple stops, and often this means even adjacent stops in the same direction on the network;
 to use places reasonably on a route, only one stop of each place must be chosen for each route.</p>
-<div id="are-stops-points-areas-or-linear-features" class="section level3" number="2.1.1">
-<h3><span class="header-section-number">2.1.1</span> Are stops points, areas, or linear features?</h3>
+<div id="are-stops-points-areas-or-linear-features" class="section level3 hasAnchor" number="2.1.1">
+<h3><span class="header-section-number">2.1.1</span> Are stops points, areas, or linear features?<a href="place.html#are-stops-points-areas-or-linear-features" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Stops are most often understood and modelled as points, which makes a lot of sense.
 Usually the point on a map shows where the stop pole, and possibly shelter, is located, and this point is then easy to navigate to and from, both to passengers and vehicle drivers.
 Thus I’d say that a point geometry is a bare minimum a stop must have in a transit data model, in addition to a unique stop id.</p>
@@ -270,13 +273,13 @@ These can differ even tens of meters for large, busy stops.</li>
 At least a radius around the point is needed to catch the vehicles that stop near the point at variable positions.</li>
 <li>A stop radius is straightforward to use in vehicle-to-stop matching algorithms, especially in realtime applications.
 However, it can be too rough for an estimate of the real area used by vehicles at that stop, especially if route geometries traverse through the resulting circle in complicated ways (common in terminal areas, especially), or if successive stops on a route end up with intersecting circles.</li>
-<li>To address that problem, you can model the stop area with a polygon that represents the real stopping area while leaving out “outliers,” or by defining the stop as a distance coverage interval along the related road or track links, which then catches correct distance values of vehicle positions projected to the links from GPS coordinates.
+<li>To address that problem, you can model the stop area with a polygon that represents the real stopping area while leaving out “outliers”, or by defining the stop as a distance coverage interval along the related road or track links, which then catches correct distance values of vehicle positions projected to the links from GPS coordinates.
 See Part <a href="place.html#gps-vs-linear">2.3</a> for more information.</li>
 </ul>
 </div>
 </div>
-<div id="when-is-a-vehicle-at-stop" class="section level3" number="2.1.2">
-<h3><span class="header-section-number">2.1.2</span> When is a vehicle <em>at stop</em>?</h3>
+<div id="when-is-a-vehicle-at-stop" class="section level3 hasAnchor" number="2.1.2">
+<h3><span class="header-section-number">2.1.2</span> When is a vehicle <em>at stop</em>?<a href="place.html#when-is-a-vehicle-at-stop" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p><em>Stop events</em> are realtime or historical data about actual departure and arrival times of trips by stop on a realized transit trip.
 They can have other stop-related attributes as well, such as door opening and closing times, and number of boarding and alighting passengers.
 An ordered list of stop events forms the spatiotemporal position history of a transit vehicle at the accuracy of stops.
@@ -305,8 +308,8 @@ You can define a shorter lifespan for big data, such as raw GPS points: keep the
 </div>
 </div>
 </div>
-<div id="what-is-between-stops" class="section level2" number="2.2">
-<h2><span class="header-section-number">2.2</span> What is between stops</h2>
+<div id="what-is-between-stops" class="section level2 hasAnchor" number="2.2">
+<h2><span class="header-section-number">2.2</span> What is between stops<a href="place.html#what-is-between-stops" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Transit vehicles do not jump from stop to stop, they have to find their way there through a decent path on the transport network.
 From passenger’s perspective, a vehicle can be “stopped at” a stop and thus available to enter and exit from, or not available: “incoming at” (just about to arrive) or “in transit to” (underway) to the next stop.
 This is how <a href="https://developers.google.com/transit/gtfs-realtime/reference#enum-vehiclestopstatus">GTFS Realtime</a> sees it.
@@ -341,8 +344,8 @@ It’d be nice if your data model not only makes available not only this status 
 </ul>
 </div>
 </div>
-<div id="gps-vs-linear" class="section level2" number="2.3">
-<h2><span class="header-section-number">2.3</span> Vehicles on a map or en route?</h2>
+<div id="gps-vs-linear" class="section level2 hasAnchor" number="2.3">
+<h2><span class="header-section-number">2.3</span> Vehicles on a map or en route?<a href="place.html#gps-vs-linear" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>As you might have seen above, I generally assume in transit data modelling that locating a real vehicle starts from its GPS position: latitude and longitude coordinates in the WGS84 coordinate system, from which we can convert to any other system, such as metric ETRS-TM35 coordinates that are useful in Finland.
 This is the “purest” form of vehicle location available to us (in HSL context also publicly available in real time, through <a href="https://digitransit.fi/en/developers/apis/4-realtime-api/vehicle-positions">HFP</a>), as accurate as the vehicle GPS device can provide.
 I recommend recording this “pure” data for analysis, KPIs, and planning purposes, not only because it enables examining vehicle movements and GPS accuracy generally in a 2D space, irrespective of the transit network (and its possible modelling errors), but also because we can then re-calculate any derivatives such as <em>projected</em> vehicle locations and stop events at any time from raw data, if we note any errors in the calculation parameters or reference data such as stop points or network link geometries.</p>
@@ -361,14 +364,14 @@ However, only the point and line geometries are often not enough, since used alo
 The matching algorithm should be able to consider other relevant facts too, such as the movement heading of vehicle position points, their speed, and a kind of a lookbehind to previous matched points to determine whether it is more realistic to match a link 5 meters away that would result in sudden jump of 250 meters forwards measured along the route itinerary, or a link 18 meters away that results in a more reasonable, 10 meters’ advance measured along the itinerary, with respect to the previous projected point.
 These are not always easy and intuitive to implement and debug.</p>
 </div>
-<div id="conclusion-1" class="section level2" number="2.4">
-<h2><span class="header-section-number">2.4</span> Conclusion</h2>
+<div id="conclusion-1" class="section level2 hasAnchor" number="2.4">
+<h2><span class="header-section-number">2.4</span> Conclusion<a href="place.html#conclusion-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>I would say there are at least three essential ways to express <em>where a transit vehicle serving a trip is located</em>:</p>
 <ol style="list-style-type: decimal">
 <li>Plain GPS coordinates of the vehicle in 2D space.</li>
-<li>In relation to road or track <em>network</em>: “on link X, N meters from the link start.”
+<li>In relation to road or track <em>network</em>: “on link X, N meters from the link start”.
 The distance could also be relative, i.e., a proportion from 0 to 1 of the link length.</li>
-<li>In relation to <em>stops</em>: “at stop X” or “between stops X and Y,” possibly with a numeric value telling how much distance is left before stop Y, for instance.</li>
+<li>In relation to <em>stops</em>: “at stop X” or “between stops X and Y”, possibly with a numeric value telling how much distance is left before stop Y, for instance.</li>
 </ol>
 <p>Ideally, we could monitor all of these in real time, as well as store them as history data.
 This way, different purposes such as passenger information, transit KPIs, and planning processes based on history data, requiring vehicle position information in different formats, could all be satisfied.

@@ -6,11 +6,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 1 Time in transit data | Thoughts about Transit Data</title>
   <meta name="description" content="Chapter 1 Time in transit data | Thoughts about Transit Data" />
-  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.34 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 1 Time in transit data | Thoughts about Transit Data" />
   <meta property="og:type" content="book" />
-  
   
   
   
@@ -32,7 +31,6 @@
   
 <link rel="prev" href="index.html"/>
 <link rel="next" href="place.html"/>
-<script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -50,8 +48,9 @@
 
 
 
-<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
-<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 
 
 <style type="text/css">
@@ -92,7 +91,7 @@ code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
 code span.at { color: #7d9029; } /* Attribute */
 code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
+code span.bu { color: #008000; } /* BuiltIn */
 code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
 code span.ch { color: #4070a0; } /* Char */
 code span.cn { color: #880000; } /* Constant */
@@ -105,7 +104,7 @@ code span.er { color: #ff0000; font-weight: bold; } /* Error */
 code span.ex { } /* Extension */
 code span.fl { color: #40a070; } /* Float */
 code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
+code span.im { color: #008000; font-weight: bold; } /* Import */
 code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 code span.kw { color: #007020; font-weight: bold; } /* Keyword */
 code span.op { color: #666666; } /* Operator */
@@ -119,6 +118,10 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -192,8 +195,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="time" class="section level1" number="1">
-<h1><span class="header-section-number">Chapter 1</span> Time in transit data</h1>
+<div id="time" class="section level1 hasAnchor" number="1">
+<h1><span class="header-section-number">Chapter 1</span> Time in transit data<a href="time.html#time" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>Collective transport seems like a relatively simple thing: buses and other vehicles run from stop to stop, at scheduled clock times that pretty much remain the same from day to day.
 Sometimes they run a bit ahead or late from the schedule.
 In reality however, the temporal and spatial aspects of a transit system are more complicated than that.
@@ -213,7 +216,7 @@ They are best applicable to the PostgreSQL database environment, but similar con
 <p><em>Time</em> is an overloaded term - it has many meanings and uses.
 In our organizational language at HSL, as well as elsewhere, each meaning is most often well understood from the context.
 At the same time, there are many caveats and possibilities of at least slight misunderstandings with the concept.
-Especially, in my view, when an experienced transit planner or analyst discusses our everyday business and related data models with a “newcomer,” such as a software developer still onboarding a project, it typically takes a lot of time to unpack the exact definition of time in each context and to get both on the same page.
+Especially, in my view, when an experienced transit planner or analyst discusses our everyday business and related data models with a “newcomer”, such as a software developer still onboarding a project, it typically takes a lot of time to unpack the exact definition of time in each context and to get both on the same page.
 It often feels overwhelming for a newcomer to read all the meanings from a list of standards, for instance, and on the other hand, trying to skip that by simplifying things and making assumptions by “common sense” just seems to postpone the inevitable effort of confronting the complexity of time in transit modelling to a later phase.
 At least at HSL, many essential definitions of time aspects - overlapping or contradictory ones as well - have not been thoroughly documented and officially agreed upon, which makes learning them pretty hard.
 I think this is because most experts already share a similar mental model about them, and are able to use a common language understandable enough, and all of these have evolved over the years;
@@ -224,8 +227,8 @@ My views are anything but exhaustive, though.</p>
 <p>Let’s think of a transit trip of HSL bus line 23, starting at 12:23 at Central Railway station on 11.12.2021.
 It has a schedule - planned departure, possibly even separate arrival times, at each stop - and hopefully, a vehicle can realize the scheduled service at real times that follow the planned times within a satisfactory variation.
 What aspects of time are involved, and where do they originate from?</p>
-<div id="times-durations-deviations" class="section level2" number="1.1">
-<h2><span class="header-section-number">1.1</span> Times, durations, deviations</h2>
+<div id="times-durations-deviations" class="section level2 hasAnchor" number="1.1">
+<h2><span class="header-section-number">1.1</span> Times, durations, deviations<a href="time.html#times-durations-deviations" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>On that very day, both the scheduled and realized stop times can be thought of as <em>absolute timestamps</em>.
 That is, they have a date and a clock time part, and they happen in a time zone, namely <code>Europe/Helsinki</code>, or <code>GMT+02</code>, in this case.
 This means we could also convert those timestamps to <em>UTC time</em>, and in fact, computers do that most of the time - they store absolute timestamps as decimal seconds starting from the so-called <a href="https://en.wikipedia.org/wiki/Unix_time">UNIX epoch</a>, UTC midnight of 1.1.1970.
@@ -411,8 +414,8 @@ Whereas duration describes how long an actual event takes, how long a feature is
 I’ll discuss duration a bit more in Part <a href="time.html#plan-vs-real">1.3</a>.</li>
 </ol>
 </div>
-<div id="operating-days-and-30-hour-clock" class="section level2" number="1.2">
-<h2><span class="header-section-number">1.2</span> Operating days and 30-hour clock</h2>
+<div id="operating-days-and-30-hour-clock" class="section level2 hasAnchor" number="1.2">
+<h2><span class="header-section-number">1.2</span> Operating days and 30-hour clock<a href="time.html#operating-days-and-30-hour-clock" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>The concept of <em>date</em> in a given time zone is a pretty simple one: a new date, <code>+1 day</code> to the previous one, begins every midnight at 00:00.
 Unfortunately in transit scheduling, it’s not as simple as that.
 Consider a trip that starts in late Friday evening and has a schedule like this:</p>
@@ -464,12 +467,12 @@ Because if you want to take <em>daylight savings</em> into account correctly, yo
 Using the midnight reference would then mess up matching calendar and operating days on those dates when the shifts happen.
 This new information blowed my mind, and I still need some time to refresh my conceptions and opinions on how to correctly model transit date and time data on the planning side…</p>
 </div>
-<div id="plan-vs-real" class="section level2" number="1.3">
-<h2><span class="header-section-number">1.3</span> From planned to real times</h2>
+<div id="plan-vs-real" class="section level2 hasAnchor" number="1.3">
+<h2><span class="header-section-number">1.3</span> From planned to real times<a href="time.html#plan-vs-real" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>On the planning side, we first defined clock times (such as trip stop departure times) for vehicle schedules specific to generic day types, which we then converted into clock times per date, i.e., datetime values by using the information on what calendar dates correspond to the day types during the operation season.
 Right after we generated the run times using seconds-precise run time measurements from past real transit trips, we have in practice operated at the precision of integer minutes: i.e., with clock times like <code>11:03</code>.
 Our systems would allow operating with seconds as well, and this is actually done when planning schedules for the subway mode, but in bus and tram planning, trying to determine things beforehand at that level of detail would make little sense.</p>
-<p>The temporal dimensions in the planning domain are packed with human-centered time conceptions, like “calendar,” “special days,” “day of week,” “rush hour,” and with time values coerced to limited precision such as minute and whole date.
+<p>The temporal dimensions in the planning domain are packed with human-centered time conceptions, like “calendar”, “special days”, “day of week”, “rush hour”, and with time values coerced to limited precision such as minute and whole date.
 As soon as we move on to the real world - <em>“realization context”</em> - things start to actually happen at exact time instants that can be put on a continuous timeline, measured with concepts like UTC Unix time.
 I think this conceptual difference is good to understand when creating data models specific to each context, and especially when integrating these two contexts.
 Our systems and software tools provide us with great methods for coercing time values, “bucketing” them into classes like hour of day or quarter of the year, taking time zones into account, and so on.
@@ -490,7 +493,7 @@ Headway is, of course, measured either within planned or realized trips.
 <p>Deviations are most practically measured in hours, minutes, and / or seconds, and stored as decimal seconds internally.
 They are technically similar to durations, but conceptually, in my view, <em>duration</em> measures a different thing - it focuses on an event, rather than the difference of two comparable events.
 This is however a matter of taste and interpretation to some extent:
-for instance, we could as well think that two clock times at successive stops are “comparable events,” even though they result in a run time describing the stop-to-stop “event.”
+for instance, we could as well think that two clock times at successive stops are “comparable events”, even though they result in a run time describing the stop-to-stop “event”.
 With this in mind, I’m not able to give exhaustive definitions for my conceptions of <em>duration</em> and <em>deviation</em>.</p>
 <div class="figure"><span style="display:block;" id="fig:plan-reality-loop"></span>
 <img src="fig/plan-reality-loop.png" alt="Feedback loop of transit planning and reality. Aspects and precision of time in each step."  />
@@ -510,7 +513,7 @@ Figure 1.4: Feedback loop of transit planning and reality. Aspects and precision
 <li>In real operations context, it is wise to use real datetimes, otherwise you can easily mix up whether an event happened today or yesterday night. Remember that you can still, for example, easily match a real trip to the planned one by using the conversion from operating to real days mentioned above:</li>
 </ul>
 <pre><code>Planned trip starts at 4.5.2020 25:01:00 (operating day)
-Real trip started at 5.5.2020 25:02:03 (real day)
+Real trip started at 5.5.2020 01:02:03 (real day)
 &gt; Set these to the same timeline by converting the planned trip:
   date 2020-05-04 + 25 hours + 1 minute + 0 seconds == 5.5.2020 01:01:00</code></pre>
 <ul>
@@ -519,11 +522,11 @@ Real trip started at 5.5.2020 25:02:03 (real day)
 </ul>
 </div>
 </div>
-<div id="human-times" class="section level2" number="1.4">
-<h2><span class="header-section-number">1.4</span> Human times</h2>
+<div id="human-times" class="section level2 hasAnchor" number="1.4">
+<h2><span class="header-section-number">1.4</span> Human times<a href="time.html#human-times" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Transit planning is full of time concepts that have nothing to do with time as a <em>physical</em> phenomenon while they are extremely important to <em>humans</em>.
-I mean things like “calendar day,” “week,” “rush time from 7 to 9 in the morning,” and so on.
-Knowing no official or otherwise better term for these, I call them “human times.”
+I mean things like “calendar day”, “week”, “rush time from 7 to 9 in the morning”, and so on.
+Knowing no official or otherwise better term for these, I call them “human times”.
 They are, in a way, just conventions to label certain points or ranges in the continuous, physical timeline, but as you can guess, the topic is not as simple and nice.
 Typical human time labels are already given as examples here and there around this text, so I’m not going to create a separate list of them here.</p>
 <p>I would classify human times at least into two different types:</p>
@@ -565,13 +568,13 @@ an example is the special day type management in HSL Jore3, where a lookup table
 </ul>
 </div>
 </div>
-<div id="more-and-more-time-dimensions" class="section level2" number="1.5">
-<h2><span class="header-section-number">1.5</span> More and more time dimensions…</h2>
+<div id="more-and-more-time-dimensions" class="section level2 hasAnchor" number="1.5">
+<h2><span class="header-section-number">1.5</span> More and more time dimensions…<a href="time.html#more-and-more-time-dimensions" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>So far, I’ve discussed different ways to express time in the “business context” of transit data, in other words, how real-life time concepts are converted into data model features.
 However, I think that almost any live in at least two different <em>time horizons</em>, or <em>dimensions</em>:</p>
 <ol style="list-style-type: decimal">
 <li>Business time, e.g. “this trip has a planned initial departure date and clock time”;</li>
-<li>Metadata time, e.g. “this trip entry for the next summer was created a month ago,” or “the trip departure time was corrected today.”</li>
+<li>Metadata time, e.g. “this trip entry for the next summer was created a month ago”, or “the trip departure time was corrected today”.</li>
 </ol>
 <p>If we want, we can split these two horizons into further subclasses.
 For instance, business time could include <em>planned</em> and correspondingly <em>realized</em> times, which can be <em>event times</em> (happening at a certain instant, or between two instants), or especially for planned features, <em>validity times</em> (corresponding to features that seem static but actually change over time, such as stop locations).
@@ -633,8 +636,8 @@ Lower and upper values of ranges can always be exposed to a database user throug
 </ul>
 </div>
 </div>
-<div id="dont-forget-the-time-zone" class="section level2" number="1.6">
-<h2><span class="header-section-number">1.6</span> Don’t forget the time zone!</h2>
+<div id="dont-forget-the-time-zone" class="section level2 hasAnchor" number="1.6">
+<h2><span class="header-section-number">1.6</span> Don’t forget the time zone!<a href="time.html#dont-forget-the-time-zone" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>This is something I already mentioned about above, but let’s discuss it as a final topic:
 we always have to take into account that in Finland, we’re not living in the nice and universal UTC time but have to deal with +2 or +3 hours offset to the UTC time, and that changes according to daylight saving time (DST) changes every March and October.
 Considering time zones in programming is <a href="https://xkcd.com/1883/">pretty hard</a>.
@@ -651,7 +654,7 @@ I think generous use of words <em>UTC</em> and <em>local</em> together with date
 <div class="tipblock">
 <p><strong>Tips for data modelling</strong></p>
 <ul>
-<li>Instead of manually converting to UTC time, store absolute datetime values <em>with</em> the timezone part - this could be the offset such as ‘GMT+02,’ or standard name such as ‘Europe/Helsinki,’ depending on the system.
+<li>Instead of manually converting to UTC time, store absolute datetime values <em>with</em> the timezone part - this could be the offset such as ‘GMT+02’, or standard name such as ‘Europe/Helsinki’, depending on the system.
 In PostgreSQL, this means using data type <code>TIMESTAMPTZ / TIMESTAMP WITH TIME ZONE</code>.</li>
 <li>You can then render datetimes stored like above in any timezone you want.
 In PostgreSQL, you can ensure a certain timezone like this: <code>"tstz col name" AT TIME ZONE 'Europe/Helsinki'</code>.</li>
@@ -663,8 +666,8 @@ In these cases, indicate that local time is meant, by naming the objects like <c
 </ul>
 </div>
 </div>
-<div id="conclusion" class="section level2" number="1.7">
-<h2><span class="header-section-number">1.7</span> Conclusion</h2>
+<div id="conclusion" class="section level2 hasAnchor" number="1.7">
+<h2><span class="header-section-number">1.7</span> Conclusion<a href="time.html#conclusion" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Above, I’ve gone through a number of aspects that can be used to describe and examine the temporal dimensions of collective transport planning and operations:</p>
 <ul>
 <li>Durations, and how to connect times and durations</li>
@@ -694,7 +697,7 @@ Anyway, in my view at least, time is a fascinating part of transit data modellin
 However, <code>{lubridate}</code> does not natively understand 30-hour clock times of the transit business, for instance, so you still have to apply your custom chunks of code there…</li>
 <li><a href="https://developers.google.com/transit/gtfs/reference">GTFS Reference</a> is a great place to learn how dates and times can be handled in planned transit and passenger information context</li>
 <li>Try out the <a href="https://digitransit.fi/en/developers/apis/1-routing-api/1-graphiql/">Digitransit GraphQL API</a> to learn how timestamps, durations, and deviations between planned and real times are handled behind <a href="reittiopas.hsl.fi/">HSL Route planner</a>, for example.
-You’ll find things such as wrangling with “integer seconds since midnight.”</li>
+You’ll find things such as wrangling with “integer seconds since midnight”.</li>
 </ul>
 </div>
 <div style="page-break-after: always;"></div>
