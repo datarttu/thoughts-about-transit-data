@@ -6,11 +6,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 3 Useful data tools | Thoughts about Transit Data</title>
   <meta name="description" content="Chapter 3 Useful data tools | Thoughts about Transit Data" />
-  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.34 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 3 Useful data tools | Thoughts about Transit Data" />
   <meta property="og:type" content="book" />
-  
   
   
   
@@ -32,7 +31,6 @@
   
 <link rel="prev" href="place.html"/>
 
-<script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -50,8 +48,9 @@
 
 
 
-<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
-<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 
 
 <style type="text/css">
@@ -92,7 +91,7 @@ code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
 code span.at { color: #7d9029; } /* Attribute */
 code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
+code span.bu { color: #008000; } /* BuiltIn */
 code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
 code span.ch { color: #4070a0; } /* Char */
 code span.cn { color: #880000; } /* Constant */
@@ -105,7 +104,7 @@ code span.er { color: #ff0000; font-weight: bold; } /* Error */
 code span.ex { } /* Extension */
 code span.fl { color: #40a070; } /* Float */
 code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
+code span.im { color: #008000; font-weight: bold; } /* Import */
 code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 code span.kw { color: #007020; font-weight: bold; } /* Keyword */
 code span.op { color: #666666; } /* Operator */
@@ -119,6 +118,10 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -192,11 +195,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="tools" class="section level1" number="3">
-<h1><span class="header-section-number">Chapter 3</span> Useful data tools</h1>
+<div id="tools" class="section level1 hasAnchor" number="3">
+<h1><span class="header-section-number">Chapter 3</span> Useful data tools<a href="tools.html#tools" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>In this text, I’ll briefly present my favourite software tools for working with transit and movement data, since 2016.</p>
-<div id="excel---a-handy-scratchpad" class="section level2" number="3.1">
-<h2><span class="header-section-number">3.1</span> Excel - a handy scratchpad</h2>
+<div id="excel---a-handy-scratchpad" class="section level2 hasAnchor" number="3.1">
+<h2><span class="header-section-number">3.1</span> Excel - a handy scratchpad<a href="tools.html#excel---a-handy-scratchpad" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Excel is widely used and known, and in that regard, great for data communication, sharing and interoperability.
 Today, it’s still my Swiss army knife in data wrangling - but only for small datasets that need visual inspection and modifications that are easiest to do interactively in the cell-based UI.
 Nowadays, implementing a full data wrangling and analysis workflow in Excel would be a red flag for me (while not generally, though - I don’t expect everyone to like the same tools and workflows I do).
@@ -242,8 +245,8 @@ Linking sheets and areas through formulae taught me a whole lot about joins and 
 <li><a href="https://rstudio-conf-2020.github.io/r-for-excel/">R for Excel Users</a>, especially Chapter 7: <a href="https://rstudio-conf-2020.github.io/r-for-excel/tidying.html">Tidying</a></li>
 </ul>
 </div>
-<div id="r" class="section level2" number="3.2">
-<h2><span class="header-section-number">3.2</span> R</h2>
+<div id="r" class="section level2 hasAnchor" number="3.2">
+<h2><span class="header-section-number">3.2</span> R<a href="tools.html#r" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>R is my great love, so much that I really need to control myself here and keep it short.
 Briefly put, R is a data-focused programming language and environment that lets you make your data wrangling and analysis steps into a reproducible, trackable process, from which others and, most importantly, future you can learn later.
 Compared to other programming languages, the best feature of R in my opinion is that it treats any variable as a vector by default, and dealing with vectors and tabular data in R is extremely comfortable.
@@ -286,8 +289,8 @@ At the end of the day, those packages are using the same core building blocks th
 But, my nature tends to draw me towards the technical issues from the domain issues - someone else would not stand the technical ones a second, which I understand well…</p>
 <p><strong>Recommended reading:</strong> <a href="https://geocompr.robinlovelace.net/">Geocomputation with R</a> by Robin Lovelace et al.</p>
 </div>
-<div id="python" class="section level2" number="3.3">
-<h2><span class="header-section-number">3.3</span> Python</h2>
+<div id="python" class="section level2 hasAnchor" number="3.3">
+<h2><span class="header-section-number">3.3</span> Python<a href="tools.html#python" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Lately, I haven’t been using Python that much.
 I still have a lot of experience in it, originating mostly from Python APIs of transport planning related desktop programs, such as ArcGIS, EMME and QGIS: these are still very useful.</p>
 <p>Compared to R, Python is much more widespread and common language, having a strong ecosystem not only in data science but also in web server and even frontend programming, scripting, testing, and what not.
@@ -295,7 +298,7 @@ Python has great, well-documented, and widely used libraries in data wrangling: 
 And, in geographical data as well: <a href="https://geopandas.org/en/stable/">geopandas</a> and Anita Graser’s <a href="https://anitagraser.github.io/movingpandas/">movingpandas</a> for movement data analysis.</p>
 <p>In principle, all the things I mentioned with R are possible with Python as well - it’s just a matter of taste, and path dependencies.
 Often people using Python or R, especially the non-programmer ones originally, have started using either one by coincidence.
-There’s no answer to whether R or Python is “better,” they can both be used as well and have just some different conventions, ecosystems, and of course, a different syntax and backend.
+There’s no answer to whether R or Python is “better”, they can both be used as well and have just some different conventions, ecosystems, and of course, a different syntax and backend.
 I find it only a nice thing that we have so many good tools and ecosystems to choose from!
 Why I like R better in many data-related problems is that treating vectors and rectangular data in Python requires some more “boilerplate” code and additional syntax, whereas base R supports those natively, as said above.</p>
 <p>I’d strongly recommend Python as the first language to learn, because</p>
@@ -308,8 +311,8 @@ Why I like R better in many data-related problems is that treating vectors and r
 </ul>
 <p><strong>Recommended reading:</strong> <a href="https://autogis-site.readthedocs.io/en/latest/index.html">Automating GIS-processes</a></p>
 </div>
-<div id="postgresql" class="section level2" number="3.4">
-<h2><span class="header-section-number">3.4</span> PostgreSQL</h2>
+<div id="postgresql" class="section level2 hasAnchor" number="3.4">
+<h2><span class="header-section-number">3.4</span> PostgreSQL<a href="tools.html#postgresql" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>PostgreSQL is an <a href="https://www.postgresql.org/docs/current/intro-whatis.html">object-relational database management system</a>.
 It’s open source, free to install and use, and my tool number one whenever I want to move away from my local development environment and scale up data storage and transformation, either because of large amount of data to handle (not fitting in RAM anymore), complex datasets (joins, need for indexes for fast access, and so on), or need to make the data available for others than me as well, or all of these reasons.</p>
 <p>Although any kinds of objects, such as nested JSON data structures, can be stored and queried in PostgreSQL, it teaches one to model reality to data structures in terms of tidy, rectangular datasets that are easy to join together with minimal ambiguity, redundancy and repetition.
@@ -338,13 +341,13 @@ In addition to this, Timescale provides a number of useful time series functions
 <li><a href="http://blog.cleverelephant.ca/archive">Writings by Paul Ramsey</a>, a PostGIS core contributor</li>
 </ul>
 </div>
-<div id="qgis" class="section level2" number="3.5">
-<h2><span class="header-section-number">3.5</span> QGIS</h2>
+<div id="qgis" class="section level2 hasAnchor" number="3.5">
+<h2><span class="header-section-number">3.5</span> QGIS<a href="tools.html#qgis" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p><a href="https://www.qgis.org/en/site/">QGIS</a> is my default, and today only, choice for a desktop GIS software that I can use to</p>
 <ol style="list-style-type: decimal">
 <li>explore any spatial data on the map, often supporting R and command line tools such as PostgreSQL client <code>psql</code> as part of my workflow;</li>
 <li>combine, transform, and visualize spatial data <em>ad hoc</em>;</li>
-<li>create automated Atlas reports, like “print a map view around all of these 50 stops, unique by <code>stop_id</code>, centering the map view by the stop location and choosing the scale from the <code>stop</code> attribute table.”</li>
+<li>create automated Atlas reports, like “print a map view around all of these 50 stops, unique by <code>stop_id</code>, centering the map view by the stop location and choosing the scale from the <code>stop</code> attribute table”.</li>
 </ol>
 <p>Perhaps my favourite feature with QGIS are the <a href="https://docs.qgis.org/3.16/en/docs/user_manual/working_with_vector/expression.html">expressions</a>, which allow calculating an arbitrary value for almost any attribute available in not only the datasets in the project, but also the QGIS itself.
 Similarly, expressions can read attribute values from almost anywhere in the program.
@@ -355,8 +358,8 @@ Another example is relational data modelling and joins that would be available t
 But this is of course a matter of taste, context, and requirements, again.</p>
 <p><strong>Recommended reading:</strong> <a href="https://anitagraser.com/movement-data-in-gis/">Movement Data in GIS</a> by Anita Graser</p>
 </div>
-<div id="git" class="section level2" number="3.6">
-<h2><span class="header-section-number">3.6</span> Git</h2>
+<div id="git" class="section level2 hasAnchor" number="3.6">
+<h2><span class="header-section-number">3.6</span> Git<a href="tools.html#git" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Git is a tool for local as well as distributed version control of software source code and documentation.
 Lately though, it has become more and more popular in use cases not necessarily related to buildable or executable code - git can be a convenient choice for any content expressed in machine- and human-readable <em>text</em>.
 (Data other than text can be tracked in git as well, but it’s not as practical in terms of version history).
@@ -367,22 +370,22 @@ However, I’ve adopted it in my personal workflow as well, because</p>
 <li>it’s a nice tool for storing the history of my modifications and work, compared to “dump” copies of the project repository every now and then;</li>
 <li>the git commits and branching force me to think my work and tasks to do in logical, limited pieces, instead of making random modifications ad hoc here and there.</li>
 </ol>
-<p>The latter often becomes a nuisance, though, and often I find myself creating awful dump commits with commit messages like “WIP.”
-For experimental workflows, I would not recommend git, since it requires some setup every time, and adhering to a reasonable commit “discipline,” to get the benefits of version control.</p>
+<p>The latter often becomes a nuisance, though, and often I find myself creating awful dump commits with commit messages like “WIP”.
+For experimental workflows, I would not recommend git, since it requires some setup every time, and adhering to a reasonable commit “discipline”, to get the benefits of version control.</p>
 <p>A nice example of a non-software project managed with git and GitHub is the open source book Geocomputation with R that I already recommended under Chapter <a href="#R"><strong>??</strong></a> but whose <a href="https://github.com/Robinlovelace/geocompr">GitHub repository</a> is worth checking as well.</p>
 <p><strong>Recommended reading:</strong> <a href="https://happygitwithr.com/">Happy Git and GitHub for the useR</a> by Jenny Bryan &amp; Jim Hester</p>
 </div>
-<div id="bash-and-other-command-line-tools" class="section level2" number="3.7">
-<h2><span class="header-section-number">3.7</span> Bash and other command line tools</h2>
+<div id="bash-and-other-command-line-tools" class="section level2 hasAnchor" number="3.7">
+<h2><span class="header-section-number">3.7</span> Bash and other command line tools<a href="tools.html#bash-and-other-command-line-tools" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Bash is one of the most used command line interpreters in Linux and other UNIX-based operating systems (including Mac OS X).
 It’s actually just one of the many UNIX command line tools, but in my setup, it’s the basic command line environment to start from every time I open a terminal on my computer.</p>
 <p>Compared to desktop UIs, bash and other text-based command line tools provide an extremely efficient, scalable, scriptable, serializable and thus reproducible interface to the operating system, files, and their contents.
 With the command line, I can easily handle tasks like renaming 1000 csv files reliably based on a certain pattern, or adding a header row to every one of them, or importing all of them into PostgreSQL in an individual process while saving the output and any errors or warnings into a log file - everything in a couple of lines of commands <em>piped</em> together.
-So, bash and other tools provide me with a selection of building blocks that I can use creatively, in a modular manner, to automate my workflows that would take ages and be very error prone if done “by hand.”</p>
+So, bash and other tools provide me with a selection of building blocks that I can use creatively, in a modular manner, to automate my workflows that would take ages and be very error prone if done “by hand”.</p>
 <p><strong>Recommended reading:</strong> <a href="https://datascienceatthecommandline.com/2e/">Data Science at the Command Line</a> by Jeroen Janssens</p>
 </div>
-<div id="final-words" class="section level2" number="3.8">
-<h2><span class="header-section-number">3.8</span> Final words</h2>
+<div id="final-words" class="section level2 hasAnchor" number="3.8">
+<h2><span class="header-section-number">3.8</span> Final words<a href="tools.html#final-words" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>All of the tools I described here, except MS Excel, are open source software - freely available, and open for anybody to contribute to the source code development.
 Why is open source so cool, in addition to being free of charge to the user?</p>
 <p>Often in proprietary software, such as ArcGIS for geographical data tasks or SPSS for statistical modelling, a user pays a high price to get a <em>reliable</em>, <em>usable</em> and <em>useful</em> product to solve business problems, and often the user expects good <em>support service</em> from the vendor to use the product effectively.

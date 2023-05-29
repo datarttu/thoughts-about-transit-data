@@ -6,11 +6,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Thoughts about Transit Data</title>
   <meta name="description" content="Thoughts about Transit Data" />
-  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.34 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Thoughts about Transit Data" />
   <meta property="og:type" content="book" />
-  
   
   
   
@@ -32,7 +31,6 @@
   
 
 <link rel="next" href="time.html"/>
-<script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -50,8 +48,9 @@
 
 
 
-<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
-<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 
 
 <style type="text/css">
@@ -92,7 +91,7 @@ code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
 code span.at { color: #7d9029; } /* Attribute */
 code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
+code span.bu { color: #008000; } /* BuiltIn */
 code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
 code span.ch { color: #4070a0; } /* Char */
 code span.cn { color: #880000; } /* Constant */
@@ -105,7 +104,7 @@ code span.er { color: #ff0000; font-weight: bold; } /* Error */
 code span.ex { } /* Extension */
 code span.fl { color: #40a070; } /* Float */
 code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
+code span.im { color: #008000; font-weight: bold; } /* Import */
 code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 code span.kw { color: #007020; font-weight: bold; } /* Keyword */
 code span.op { color: #666666; } /* Operator */
@@ -119,6 +118,10 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -195,17 +198,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="header">
 <h1 class="title">Thoughts about Transit Data</h1>
 <p class="author"><em>Arttu Kosonen</em></p>
-<p class="date"><em>20.12.2021</em></p>
+<p class="date"><em>29.05.2023</em></p>
 </div>
-<div id="introduction" class="section level1 unnumbered">
-<h1>Introduction</h1>
+<div id="introduction" class="section level1 unnumbered hasAnchor">
+<h1>Introduction<a href="index.html#introduction" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>This is a series of texts where I consider some aspects of public transport data modelling, based on my personal experience writing my Master’s thesis from year 2019 on, and working at HSL (Helsinki Region Transport) as transit planner and data engineer.
 In the following sections, I will discuss my thoughts about time and place representation in transit data, and what software tools I have used and like to recommend for dealing with transit data.</p>
 <p>These texts represent my own thoughts and experiences - not exhaustive, scientifically proved facts or common best practices.
 There is no answer how to best model and use transit data, and what tools to use for it - it depends!
 And I’ve only just started my own path in the fascinating world of transit data modelling.</p>
-<div id="estimated-time-use" class="section level2 unnumbered">
-<h2>Estimated time use</h2>
+<div id="estimated-time-use" class="section level2 unnumbered hasAnchor">
+<h2>Estimated time use<a href="index.html#estimated-time-use" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>For the 5 ECTS that I wish to acquire from Aalto University, I have calculated a <em>rough</em> estimate of time I’ve spent with topics related to these texts.
 These hours come, in principle, on top of my paid working time and time spent to my Master’s thesis, although they all have to do with the same topics.</p>
 <table>
